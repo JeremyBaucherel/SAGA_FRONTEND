@@ -1,0 +1,24 @@
+.stk-date-calendar-week {
+    display:flex;
+    flex-direction: row;
+    margin-bottom:2px;
+}
+
+.stk-date-calendar-week:last-child {
+    margin-bottom:0;
+}
+
+.stk-date-calendar-day {
+    flex:1 1 0%;
+    display:flex;
+    margin-right:2px;
+    text-align:center;
+}
+
+.stk-date-calendar-day:last-child {
+    margin-right:0;
+}
+
+.stk-date-calendar-day > * {
+    flex:1 1 0%;
+}

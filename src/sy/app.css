@@ -1,0 +1,162 @@
+html {
+	height:100%;
+	font-size:13px;
+	font-variant: medium;
+	font-family: Roboto, Arial;
+	-webkit-font-smoothing: antialiased;
+	min-width:1000px;
+	cursor:default;
+}
+
+img {
+	border:0;
+}
+
+#print {
+	font-size:11px;
+}
+
+body {
+	padding:0;
+	margin:0;	
+	color:#000000;
+	background:#F0F0F0;
+	min-height:calc(100vh - 50px);
+	height:100%;
+	box-sizing:border-box;
+}
+
+#body {
+	height:calc(100%);
+	box-sizing:border-box;
+}
+
+#body .stk-page-body, #body .stk-page-body-fullwidth {
+	flex: 1 1;
+	align-content: stretch; 
+	margin:0;
+	padding:0;
+	display:flex;
+	justify-content:center;
+	overflow-y: auto;
+}
+
+.subtle {
+	color: rgba(0, 0, 0, 0.5);
+}
+span strong.subtle {
+	font-weight:bold;
+}
+
+p {
+	margin: 0 0 10px 0;
+	padding:0;
+}
+
+p:last-child {
+	margin:0;
+}
+
+
+a, a:visited {
+	color:#227FDB;
+	text-decoration:none;	
+}
+
+a:hover {
+	color:#227FDB;
+	text-decoration:underline;
+}
+
+.subtle a, .subtle a:visited {
+	color:#64B5F6;
+	text-decoration:none;	
+}
+
+.subtle a:hover {
+	color:#64B5F6;
+	text-decoration:underline;
+}
+
+blockquote {
+	font-size:1em;
+	padding:0;
+	margin:0;
+}
+
+blockquote p {
+	margin:0;
+}
+
+.blink {
+  animation: table-blink 1.5s linear infinite;
+}
+
+@keyframes table-blink {  
+  70% { opacity: 0.0; }
+}
+
+.alert-success {
+	-border:1px solid #DCE775;
+	padding:10px;
+	background:#F9FBE7;
+	outline:none;
+	display:block;	
+}
+
+.alert-warning  {
+	border:1px solid #FFA726;
+	padding:10px;
+	box-shadow:0 0 6px #FFE0B2;
+	background:#FFF3E0;
+	outline:none;
+	border-radius:2px;
+	display:block;	
+}
+
+.appearing {
+	animation: ElementAppearing 0.1s ease-in;
+}
+
+@keyframes ElementAppearing {
+	0% { opacity: 0.0; }
+}
+
+.progressbar {
+	background:#1976D2;
+	padding:1px;
+	color:#FFFFFF;
+	text-align:left;
+    display:block;
+    text-decoration:none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+	box-sizing:border-box;
+}
+
+.no-wrap {
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+
+h2 {
+	color: #666666;
+    font-weight: normal;
+	margin:0;
+}
+
+h3 {
+    font-size:1em;
+	margin:0 0 10px 0;
+	padding:0 0 10px 0;
+	border-bottom:1px solid #E9E9E9;
+	font-weight:600;
+	box-shadow: 0 4px 5px -4px #EAEAEA;
+}
+
+h3:not(:first-child) {
+	margin-top:15px;
+}
+

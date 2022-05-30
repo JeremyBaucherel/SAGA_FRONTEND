@@ -1,0 +1,41 @@
+{
+  "name": "asgard",
+  "dependencies": {
+    "es6-object-assign": "^1.1.0",
+    "es6-promise": "^4.2.8",
+    "parcel-bundler": "1.12.3",
+    "postcss": "^6.0.23",
+    "raw": "^0.1.4",
+    "react": "^16.12.0",
+    "react-dom": "16.3.2",
+    "react-redux": "^5.1.2",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.4",
+    "stk": "file:../stk",
+    "typescript": "^2.9.2",
+    "whatwg-fetch": "^2.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.13",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "@types/react-redux": "^6.0.14",
+    "@types/react-router": "^4.4.5",
+    "@types/react-router-dom": "^4.3.5",
+    "@types/redux": "^3.6.31"
+  },
+  "description": "Interface Web de ASGARD",
+  "license": "Copyright Airbus",
+  "repository": {
+    "type": "git",
+    "url": "https://gheprivate.intra.corp/ASGARD/ASGARD_FRONTEND.git"
+  },
+  "scripts": {
+    "build": "parcel build ./src/sy/app.tsx --out-dir ./dist --public-url ./ --log-level 3 --no-source-maps",
+    "check": "tsc --noEmit -p tsconfig.json",
+    "watch": "parcel watch ./src/sy/app.tsx --out-dir ./dist --public-url ./ --log-level 3",
+    "dev": "parcel src/index.html"
+  },
+  "version": "2022.03.17"
+}
