@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
 import * as Store from '../sy/store';
 import {Button, EIcon, Icon, Popover, EPosition, ETrigger, Menu, MenuItem, MenuSeparator, ButtonBar, Tooltip} from 'stk';
-import logoall from "../../images/asgard-logo-0.png";
+import logoall from "../../images/SAGA-logo-0.png";
 import logoairbus from "../../images/Airbus-logo-black.png";
 import * as Cookie from '../cookie';
 import * as Common from '../sy/api/common';
@@ -33,7 +33,7 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 		}
 		if (title === undefined) {
 			if (this.props.title === undefined) {
-				title = (<ToolbarTitle><h1>Bienvenue dans l'application Asgard</h1></ToolbarTitle>);
+				title = (<ToolbarTitle><h1>Bienvenue dans l'application SAGA: Single Application to Govern All !</h1></ToolbarTitle>);
 			} else {
 				title = (<ToolbarTitle><h1>{this.props.title}</h1></ToolbarTitle>);
 			}
@@ -44,13 +44,8 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 				<div id="page-toolbar-title-container">
 					<div id="page-toolbar-title">
 						<ReactRouterDOM.Link id="page-toolbar-title-logo" to="/" >
-							<div id="page-toolbar-title-logo-airbus" >
-								<img src={'/static/2022.03.17/' + logoairbus} width="112.6" height="21" />
-							</div>
-						</ReactRouterDOM.Link>
-						<ReactRouterDOM.Link id="page-toolbar-title-logo" to="/" >
 							<div>
-								<img src={'/static/2022.03.17/' + logoall} height="25" />
+								<img src={'/static/2022.06.01/' + logoall} height="25" />
 							</div>
 							<div id="page-toolbar-title-logo-name"><span id="page-toolbar-title-logo-version">V{version}</span></div>
 						</ReactRouterDOM.Link>
@@ -141,8 +136,8 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 							{paramGlobal}
 							{sepGlobal}
 
-							<MenuItem key="bug" to={"mailto:jeremy.j.baucherel.external@airbus.com?subject=[ASGARD] Bug"} icon={EIcon.BUG_REPORT}>Signaler un bug</MenuItem>
-							<MenuItem key="improvement" to="https://gheprivate.intra.corp/Asgard/ASGARD/issues" icon={EIcon.FEED_BACK}>Proposer une amélioration</MenuItem>
+							<MenuItem key="bug" to={"mailto:jeremy.j.baucherel.external@airbus.com?subject=[SAGA] Bug"} icon={EIcon.BUG_REPORT}>Signaler un bug</MenuItem>
+							<MenuItem key="improvement" to="https://gheprivate.intra.corp/SAGA/SAGA/issues" icon={EIcon.FEED_BACK}>Proposer une amélioration</MenuItem>
 							<MenuItem key="information" to="/information" icon={EIcon.INFO}>Information</MenuItem>
 							<MenuSeparator key="sepFin" />
 							

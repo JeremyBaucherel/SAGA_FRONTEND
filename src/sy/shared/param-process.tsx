@@ -183,7 +183,7 @@ export class ParamProcessComp extends React.PureComponent<ParamProcessProps, Par
 									/>
 								</BoxBody>
 								<BoxFooter>
-									© {dateJour.getFullYear()} - ASGARD Application
+									© {dateJour.getFullYear()} - SAGA Application
 								</BoxFooter>
 							</Box>
 						</Row>);

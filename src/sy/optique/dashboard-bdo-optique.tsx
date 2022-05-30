@@ -175,7 +175,7 @@ export class ParamComp extends React.PureComponent<DashboardProps,IDashboardStat
 							/>
 					</BoxBody>
 					<BoxFooter>
-						© {dateJour.getFullYear()} - ASGARD Application
+						© {dateJour.getFullYear()} - SAGA Application
 					</BoxFooter>
 				</Box>
 			</Row>

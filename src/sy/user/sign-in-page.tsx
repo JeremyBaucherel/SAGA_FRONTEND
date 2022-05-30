@@ -72,7 +72,7 @@ class SignInBox extends React.Component<ISignInBoxProps, ISignInBoxState> {
 						<Box withBorder style={{width:'22em'}}>
 							<BoxHeading><h2>Identifiants de connexion</h2></BoxHeading>
 							<BoxBody padding={Padding.ULarge}>
-								{this.props.defaultLogon ? (<p><strong>Bienvenue dans ASGARD.</strong> Vous pouvez maintenant vous connecter avec le mot de passe que vous avez choisi.</p>) : null}
+								{this.props.defaultLogon ? (<p><strong>Bienvenue dans SAGA.</strong> Vous pouvez maintenant vous connecter avec le mot de passe que vous avez choisi.</p>) : null}
 								<FormControl>
 									<FormSmartText
 										icon={EIcon.ACCOUNT_CIRCLE}
@@ -110,7 +110,7 @@ class SignInBox extends React.Component<ISignInBoxProps, ISignInBoxState> {
 						</Box>
 					</BoxBody>
 					<BoxFooter>
-						© {dateJour.getFullYear()} - ASGARD Application
+						© {dateJour.getFullYear()} - SAGA Application
 					</BoxFooter>
 				</Box>
 			</Row>

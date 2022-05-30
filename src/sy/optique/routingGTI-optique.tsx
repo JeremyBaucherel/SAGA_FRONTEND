@@ -267,7 +267,7 @@ export class ParamComp extends React.PureComponent<ParamProps, ParamState> {
 							/>
 					</BoxBody>
 					<BoxFooter>
-						© {dateJour.getFullYear()} - ASGARD Application
+						© {dateJour.getFullYear()} - SAGA Application
 					</BoxFooter>
 				</Box>
 			</Row>

@@ -40,7 +40,7 @@ export class DashboardComsComp extends React.PureComponent<DashboardProps, Dashb
 
 		return (
 			<Page title="Dashboard COMS">
-				<Toolbar title='Asgard - Process COMS'>
+				<Toolbar title='SAGA - Process COMS'>
 					<ToolbarTitle>
                         <h1>Process Coms - Dashboard</h1>
                     </ToolbarTitle>

@@ -1,5 +1,5 @@
 {
-  "name": "asgard",
+  "name": "saga",
   "dependencies": {
     "es6-object-assign": "^1.1.0",
     "es6-promise": "^4.2.8",
@@ -25,11 +25,11 @@
     "@types/react-router-dom": "^4.3.5",
     "@types/redux": "^3.6.31"
   },
-  "description": "Interface Web de ASGARD",
-  "license": "Copyright Airbus",
+  "description": "Interface Web de SAGA",
+  "license": "Copyright Jérémy BAUCHEREL",
   "repository": {
     "type": "git",
-    "url": "https://gheprivate.intra.corp/ASGARD/ASGARD_FRONTEND.git"
+    "url": "https://github.com/JeremyBaucherel/SAGA_FRONTEND.git"
   },
   "scripts": {
     "build": "parcel build ./src/sy/app.tsx --out-dir ./dist --public-url ./ --log-level 3 --no-source-maps",
@@ -37,5 +37,5 @@
     "watch": "parcel watch ./src/sy/app.tsx --out-dir ./dist --public-url ./ --log-level 3",
     "dev": "parcel src/index.html"
   },
-  "version": "2022.03.17"
+  "version": "2022.06.01"
 }

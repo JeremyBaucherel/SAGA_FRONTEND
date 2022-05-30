@@ -208,7 +208,7 @@ export class RoleAutorisationComp extends React.PureComponent<ParamProps, ParamS
 										<Row style={{height:"98%"}}>{rolecomp}</Row>
 									</BoxBody>
 									<BoxFooter>
-										© {dateJour.getFullYear()} - ASGARD Application
+										© {dateJour.getFullYear()} - SAGA Application
 									</BoxFooter>
 								</Box>
 							</Row>

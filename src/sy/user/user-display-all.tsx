@@ -176,7 +176,7 @@ export class UserDisplayAllPage extends React.Component<IUserDisplayAllProps, IU
                                     {listUser}
                                 </BoxBody>
                                 <BoxFooter>
-										© {dateJour.getFullYear()} - ASGARD Application
+										© {dateJour.getFullYear()} - SAGA Application
 								</BoxFooter>
                             </Box>
                         </Col>

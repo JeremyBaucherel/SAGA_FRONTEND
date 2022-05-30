@@ -337,7 +337,7 @@ export class DashboardOptiqueComp extends React.PureComponent<DashboardProps, ID
 							/>
 					</BoxBody>
 					<BoxFooter>
-						© {dateJour.getFullYear()} - ASGARD Application
+						© {dateJour.getFullYear()} - SAGA Application
 					</BoxFooter>
 				</Box>
 			</Row>

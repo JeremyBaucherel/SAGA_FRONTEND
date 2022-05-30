@@ -306,7 +306,7 @@ export class UserForm extends React.Component<IUserFormProps, IUserFormState> {
 							{buttonUser}
 						</BoxBody>
 						<BoxFooter>
-								© {dateJour.getFullYear()} - ASGARD Application
+								© {dateJour.getFullYear()} - SAGA Application
 						</BoxFooter>
 					</Box>
 				</Row>

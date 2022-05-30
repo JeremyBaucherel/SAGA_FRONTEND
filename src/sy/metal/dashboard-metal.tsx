@@ -352,7 +352,7 @@ export class DashboardMetalComp extends React.PureComponent<IDashboardProps,IDas
 						/>
 					</BoxBody>
 					<BoxFooter>
-						© {dateJour.getFullYear()} - ASGARD Application
+						© {dateJour.getFullYear()} - SAGA Application
 					</BoxFooter>
 				</Box>
 			</Row>

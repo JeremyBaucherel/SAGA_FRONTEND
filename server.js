@@ -12,7 +12,7 @@ var STATIC_FILES = {};
 var STATIC_PREFIX = '/static/' + VERSION + '/';
 var STATIC_FILES_DIRPATH = './dist/';
 
-console.log('Asgard-UI v' + VERSION);
+console.log('SAGA-UI v' + VERSION);
 console.log('- Static files served from:', STATIC_FILES_DIRPATH);
 
 fs.readdir(STATIC_FILES_DIRPATH, function (err, files) {
@@ -43,7 +43,7 @@ function routeHome (req, res) {
               <div id="notifications"></div>
               <div id="body"></div>
               <script type=\"text/javascript\">
-              window.app_title = 'Asgard [5C3F]';
+              window.app_title = 'SAGA';
               </script>
               <script src=\"/static/VAR_VERSION/app.js\"></script>
           </body>

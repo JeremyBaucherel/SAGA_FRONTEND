@@ -432,7 +432,7 @@ export default class UserPageComponent extends React.Component<IUserPageProps, I
                                 </Col>
                             </BoxBody>
                             <BoxFooter>
-                                    © {dateJour.getFullYear()} - ASGARD Application
+                                    © {dateJour.getFullYear()} - SAGA Application
                             </BoxFooter>
                         </Box>
                     </Row>

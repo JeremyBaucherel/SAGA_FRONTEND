@@ -21,20 +21,20 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
 
         let dateJour = new Date();
 
-        let isOptique = Common.hasAuthorization(this.props.user, 'OPTIQUE:DISPLAY');
-        let isMetal = Common.hasAuthorization(this.props.user, 'METAL:DISPLAY');
+        let isBook = Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY');
+        let isMovie = Common.hasAuthorization(this.props.user, 'MOVIE:DISPLAY');
         let isComsE = Common.hasAuthorization(this.props.user, 'COMS-E:DISPLAY');
         let isComsM = Common.hasAuthorization(this.props.user, 'COMS-M:DISPLAY');
 
-        let isOnlyOptique = (isOptique && !isMetal && !isComsE && !isComsM);
-        let isOnlyMetal = (isMetal && !isOptique && !isComsE && !isComsM);
-        let isOnlyComsE = (isComsE && !isOptique && !isMetal && !isComsM);
-        let isOnlyComsM = (isComsM && !isOptique && !isMetal && !isComsE);
+        let isOnlyOptique = (isBook && !isMovie && !isComsE && !isComsM);
+        let isOnlyMetal = (isMovie && !isBook && !isComsE && !isComsM);
+        let isOnlyComsE = (isComsE && !isBook && !isMovie && !isComsM);
+        let isOnlyComsM = (isComsM && !isBook && !isMovie && !isComsE);
 
         let affOptique;
-        if(isOptique){affOptique = (this.renderOptique())};
+        if(isBook){affOptique = (this.renderOptique())};
         let affMetal;
-        if(isMetal){affMetal = (this.renderMetal())};
+        if(isMovie){affMetal = (this.renderMetal())};
         let affComsE;
         if(isComsE){affComsE = (this.renderComsE())};
         let affComsM;
@@ -67,7 +67,7 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
                                     </Col>        
                                 </BoxBody>
                                 <BoxFooter>
-                                    © {dateJour.getFullYear()} - ASGARD Application
+                                    © {dateJour.getFullYear()} - SAGA Application
                                 </BoxFooter>
                             </Box>
                         </Row>

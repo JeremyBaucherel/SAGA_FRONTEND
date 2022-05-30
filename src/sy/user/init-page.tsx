@@ -194,7 +194,7 @@ class UserInitPageComponent extends React.Component<IUserInitPageComponentProps,
 											<div style={{textAlign:'center'}}><Icon style={{fontSize:'15em'}} icon={EIcon.SECURITY} /></div>
 										</BoxBody>
 										<BoxBody>
-											<div>Afin d'initialiser votre compte utilisateur Asgard, merci de choisir un mot de passe.</div>
+											<div>Afin d'initialiser votre compte utilisateur SAGA, merci de choisir un mot de passe.</div>
 										</BoxBody>
 										<BoxBody>
 											<UserInitPageForm errors={this.state.errors} onChange={this.handlePasswordChange.bind(this)} />

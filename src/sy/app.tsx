@@ -1,5 +1,5 @@
 /**
- * Entry for the Asgard web application: essentially a routing component.
+ * Entry for the SAGA web application: essentially a routing component.
  */
 
 import './app.css';
@@ -54,11 +54,11 @@ import {Toolbar, ToolbarTitle} from '../ui/toolbar';
 import * as Api from './api';
 
 
-interface IAsgardRouterProps {
+interface ISAGARouterProps {
 	user?: Store.User;
 }
 
-interface IAsgardRouterState {
+interface ISAGARouterState {
 	error: boolean;
 	errorDescription: string;
 	fetchingUser: boolean;
@@ -71,7 +71,7 @@ interface IRgpdPopupState {
 
 /**
  * A popup to get the user consent regarding Private Individual Information (PII)
- * collection by Asgard in the frame of the GDPR.
+ * collection by SAGA in the frame of the GDPR.
  *
  * https://en.wikipedia.org/wiki/General_Data_Protection_Regulation
  */
@@ -121,7 +121,7 @@ class RgpdPopup extends React.Component<{}, IRgpdPopupState> {
 						<h2>Collecte des données personnelles (RGPD)</h2>
 					</PopupTitle>
 					<PopupBody style={{overflow:"auto", display: "block"}}>
-					<p>Dans le cadre de la mise en application du Réglement Général sur la Protection des Données (RGPD), entrée en application le 25/05/2018, nous vous informons que l'outil <em>Asgard</em> collecte certaines de vos données personnelles.</p>
+					<p>Dans le cadre de la mise en application du Réglement Général sur la Protection des Données (RGPD), entrée en application le 25/05/2018, nous vous informons que l'outil <em>SAGA</em> collecte certaines de vos données personnelles.</p>
 
 					<h4>Quelles données personnelles sont collectées ?</h4>
 					<ul>
@@ -131,18 +131,18 @@ class RgpdPopup extends React.Component<{}, IRgpdPopupState> {
 
 					<h4>Pourquoi collectons-nous ces données ?</h4>
 					<ol>
-						<li>Maîtriser l'accès aux données. En donnant l'accès à <em>Asgard</em> sur la base de comptes utilisateurs individuels, nous nous assurons que les données ne sont accessibles que par les personnes autorisées</li>
+						<li>Maîtriser l'accès aux données. En donnant l'accès à <em>SAGA</em> sur la base de comptes utilisateurs individuels, nous nous assurons que les données ne sont accessibles que par les personnes autorisées</li>
 						<li>Supporter un travail collaboratif. </li>
 					</ol>
 
 					<h4>Qui utilise ces données ?</h4>
-					<p>Ces données sont uniquement utilisées par l'application <em>Asgard</em>. Elles ne sont pas transférées vers d'autres applications ou services.</p>
+					<p>Ces données sont uniquement utilisées par l'application <em>SAGA</em>. Elles ne sont pas transférées vers d'autres applications ou services.</p>
 
 					<h4>Où sont stockées vos données ?</h4>
 					<p>Vos données personnelles sont uniquement hébergées sur des serveurs <em>Airbus</em>, à Toulouse.</p>
 
 					<h4>Combien de temps ces données sont-elles conservées ?</h4>
-					<p>Au maximum 2 ans après la dernière connexion à <em>Asgard</em>, nous supprimerons les données personnelles stockées dans l'outil.</p>
+					<p>Au maximum 2 ans après la dernière connexion à <em>SAGA</em>, nous supprimerons les données personnelles stockées dans l'outil.</p>
 
 					<h4>Je souhaite en savoir plus</h4>
 					<p>Pour plus d'informations, vous pouvez consulter la <a href="https://sites.google.com/airbus.com/dataprivacy/gdpr-basics">page explicative du RGPD</a>.</p>
@@ -150,8 +150,8 @@ class RgpdPopup extends React.Component<{}, IRgpdPopupState> {
 					</PopupBody>
 
 					<PopupFooter>
-						<strong>Acceptez-vous que ces données personnelles soient collectées par <em>Asgard</em> ?</strong>
-						<Button caution icon={EIcon.CLOSE} to={"mailto:jeremy.j.baucherel.external@airbus.com?subject=Asgard:%20Je%20souhaite%20supprimer%20mes%20données%20personnelles"}>Je refuse</Button>
+						<strong>Acceptez-vous que ces données personnelles soient collectées par <em>SAGA</em> ?</strong>
+						<Button caution icon={EIcon.CLOSE} to={"mailto:jeremy.j.baucherel.external@airbus.com?subject=SAGA:%20Je%20souhaite%20supprimer%20mes%20données%20personnelles"}>Je refuse</Button>
 						<Button primary icon={this.state.acceptRequest == Api.ECallStatus.RUNNING ? EIcon.HOURGLASS_EMPTY : EIcon.CHECK} onClick={() => this.requestAccept()}>J'accepte</Button>
 					</PopupFooter>
 				</Popup>
@@ -165,8 +165,8 @@ class RgpdPopup extends React.Component<{}, IRgpdPopupState> {
 /**
  * The global router component for the application.
 */
-class AsgardRouterComp extends React.Component<IAsgardRouterProps, IAsgardRouterState> {
-	constructor (props: IAsgardRouterProps) {
+class SAGARouterComp extends React.Component<ISAGARouterProps, ISAGARouterState> {
+	constructor (props: ISAGARouterProps) {
 		super(props);
 
 		this.state = {
@@ -184,7 +184,7 @@ class AsgardRouterComp extends React.Component<IAsgardRouterProps, IAsgardRouter
 	 * If no user has been received so far, request it.
 	 * @param nextProps
 	 */
-	componentWillReceiveProps (nextProps: IAsgardRouterProps): void {
+	componentWillReceiveProps (nextProps: ISAGARouterProps): void {
 		if (nextProps.user === null) {
 			this.requestUser();
 		}
@@ -329,7 +329,7 @@ class AsgardRouterComp extends React.Component<IAsgardRouterProps, IAsgardRouter
 			<Page title="Woops...">
 				<Toolbar>
 					<ToolbarTitle>
-						<h1>Asgard</h1>
+						<h1>SAGA</h1>
 					</ToolbarTitle>
 				</Toolbar>
 				<PageBody>
@@ -345,16 +345,16 @@ class AsgardRouterComp extends React.Component<IAsgardRouterProps, IAsgardRouter
 		);
 	}
 }
-const AsgardRouter = Store.withStore(AsgardRouterComp);
+const SAGARouter = Store.withStore(SAGARouterComp);
 
-class AsgardApp extends React.Component {
+class SAGAApp extends React.Component {
 	render() {
 		return (
 			<Provider store={Store.get()}>
-				<AsgardRouter />
+				<SAGARouter />
 			</Provider>
 		);
 	}
 }
 
-ReactDOM.render(React.createElement(AsgardApp), document.getElementById('body'));
+ReactDOM.render(React.createElement(SAGAApp), document.getElementById('body'));
