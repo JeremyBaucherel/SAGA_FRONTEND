@@ -1,0 +1,9 @@
+.cache/*
+dist/*
+css/**/*
+node_modules/*
+package-lock.json
+js/*
+js-cjs/*
+.vscode/launch.json
+log.txt
