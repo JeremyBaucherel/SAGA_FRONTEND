@@ -21,6 +21,7 @@ interface ParamProcessProps {
 	add?: boolean;
 	onAddCell?: any;
 	urlRetour?: string;
+	sortable_default?: string[];
 }
 
 interface ParamProcessState {
@@ -180,10 +181,11 @@ export class ParamProcessComp extends React.PureComponent<ParamProcessProps, Par
 										add={this.props.add}
 										delete={del}
 										selectedRow={this.state.selectedRow}
+										sortable_default={this.props.sortable_default}
 									/>
 								</BoxBody>
 								<BoxFooter>
-									© {dateJour.getFullYear()} - SAGA Application
+									© {dateJour.getFullYear()} - ASGARD Application
 								</BoxFooter>
 							</Box>
 						</Row>);
