@@ -60,10 +60,10 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('code', 'Code', 100, "menu", "text", true, false, undefined, undefined, true, true, true),
-			new SpreadsheetColumn('construction', 'Construction', 300, "text", "text", true, false, undefined, undefined, false, true, false),
-			new SpreadsheetColumn('description', 'Description', 300, "text", "text", true, false, undefined, undefined, false, true, false),
-            new SpreadsheetColumn('norme', 'Norme', 300, "menu", "text", true, false, undefined, undefined, true, true, false),
+			new SpreadsheetColumn('code', 'Code', 100, "menu", "text", true, false, true, true, true),
+			new SpreadsheetColumn('construction', 'Construction', 300, "text", "text", true, false, false, true, false),
+			new SpreadsheetColumn('description', 'Description', 300, "text", "text", true, false, false, true, false),
+            new SpreadsheetColumn('norme', 'Norme', 300, "menu", "text", true, false, true, true, false),
 		];
 
 		let title="Paramétrage Type de câble - Process Fibre Optique";

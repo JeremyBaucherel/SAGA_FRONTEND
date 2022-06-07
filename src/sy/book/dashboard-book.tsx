@@ -15,8 +15,29 @@ interface DashboardProps {
 
 interface IDashboardState {
 	result: any;
+	resultSave: any;
+	resultAdd: any;
+	resultDel: any;
+
+	resultMenuType: any;
+	resultMenuSaga: any;
+	resultMenuPublishing: any;
+	resultMenuOwner: any;
+	resultMenuLocation: any;
+
 	filter_default: any;
+
 	requestStatus: Common.ECallStatus;
+	requestStatusSave: Common.ECallStatus;
+	requestStatusDel: Common.ECallStatus;
+	requestStatusAdd: Common.ECallStatus;
+
+	requestStatusMenuType: Common.ECallStatus;
+	requestStatusMenuSaga: Common.ECallStatus;
+	requestStatusMenuPublishing: Common.ECallStatus;
+	requestStatusMenuOwner: Common.ECallStatus;
+	requestStatusMenuLocation: Common.ECallStatus;
+
 	selectedRow: number;
 }
 
@@ -27,20 +48,51 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 
 		this.state = {
 			result: {},
+			resultSave: {},
+			resultAdd: {},
+			resultDel: {},
+
+			resultMenuType: {},
+			resultMenuSaga: {},
+			resultMenuPublishing: {},
+			resultMenuOwner: {},
+			resultMenuLocation: {},
+
 			filter_default: {},
+
 			requestStatus: Common.ECallStatus.NOT_STARTED,
+			requestStatusSave: Common.ECallStatus.NOT_STARTED,
+			requestStatusDel: Common.ECallStatus.NOT_STARTED,
+			requestStatusAdd: Common.ECallStatus.NOT_STARTED,
+
+			requestStatusMenuType: Common.ECallStatus.NOT_STARTED,
+			requestStatusMenuSaga: Common.ECallStatus.NOT_STARTED,
+			requestStatusMenuPublishing: Common.ECallStatus.NOT_STARTED,
+			requestStatusMenuOwner: Common.ECallStatus.NOT_STARTED,
+			requestStatusMenuLocation: Common.ECallStatus.NOT_STARTED,
+
 			selectedRow:-1,
 		};
 
 		this.handleClickRow = this.handleClickRow.bind(this);
 		this.handleResetFilter = this.handleResetFilter.bind(this);
 		this.handleDefineFilterDefault = this.handleDefineFilterDefault.bind(this);
+
+		this.handleAddCell = this.handleAddCell.bind(this);
+		this.handleSaveCell = this.handleSaveCell.bind(this);
+		this.handleDelCell = this.handleDelCell.bind(this);
 	}
 	
 	componentDidMount (): void {
 		this.requestData();
+		this.requestMenuType();
+		this.requestMenuSaga();
+		this.requestMenuPublishing();
+		this.requestMenuOwner();
+		this.requestMenuLocation();
 	}
 
+	// Requète bibliothèque
     requestData (): void {
 		this.setState({requestStatus: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'book', 'dashboard']);
@@ -63,6 +115,122 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		});
 	}
 
+	// Menu Type
+	requestMenuType (): void {
+		this.setState({requestStatusMenuType: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'liste', 'type']);
+		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuType.bind(this), this.receiveMenuTypeError.bind(this));
+	}
+
+	receiveMenuType (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuType: Common.ECallStatus.OK,
+			resultMenuType: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuTypeError (): void {
+		this.setState({
+			requestStatusMenuType: Common.ECallStatus.NOK,
+			resultMenuType:[]
+		});
+	}
+
+	// Menu SAGA
+	requestMenuSaga (): void {
+		this.setState({requestStatusMenuSaga: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'liste', 'saga']);
+		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
+	}
+
+	receiveMenuSaga (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuSaga: Common.ECallStatus.OK,
+			resultMenuSaga: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuSagaError (): void {
+		this.setState({
+			requestStatusMenuSaga: Common.ECallStatus.NOK,
+			resultMenuSaga:[]
+		});
+	}
+
+	// Menu Publishing
+	requestMenuPublishing (): void {
+		this.setState({requestStatusMenuPublishing: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'liste', 'publishing']);
+		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuPublishing.bind(this), this.receiveMenuPublishingError.bind(this));
+	}
+
+	receiveMenuPublishing (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuPublishing: Common.ECallStatus.OK,
+			resultMenuPublishing: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuPublishingError (): void {
+		this.setState({
+			requestStatusMenuPublishing: Common.ECallStatus.NOK,
+			resultMenuPublishing:[]
+		});
+	}
+
+	// Menu Owner
+	requestMenuOwner (): void {
+		this.setState({requestStatusMenuOwner: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'liste', 'owner']);
+		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
+	}
+
+	receiveMenuOwner (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuOwner: Common.ECallStatus.OK,
+			resultMenuOwner: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuOwnerError (): void {
+		this.setState({
+			requestStatusMenuOwner: Common.ECallStatus.NOK,
+			resultMenuOwner:[]
+		});
+	}
+
+	// Menu Location
+	requestMenuLocation (): void {
+		this.setState({requestStatusMenuLocation: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'liste', 'location']);
+		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
+	}
+
+	receiveMenuLocation (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuLocation: Common.ECallStatus.OK,
+			resultMenuLocation: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuLocationError (): void {
+		this.setState({
+			requestStatusMenuLocation: Common.ECallStatus.NOK,
+			resultMenuLocation:[]
+		});
+	}
+
+	// action si Click sur ligne tableau
 	handleClickRow(rowIndex: any, ifSelectedRow:boolean){
 		if(ifSelectedRow){
 			this.setState({selectedRow: -1})
@@ -74,9 +242,13 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	render (): React.ReactNode {
 		let pageBody: React.ReactNode = '';
 
-		if (this.state.requestStatus == Common.ECallStatus.RUNNING) {
+		if (this.state.requestStatus == Common.ECallStatus.RUNNING || this.state.requestStatusMenuType == Common.ECallStatus.RUNNING || 
+			this.state.requestStatusMenuSaga == Common.ECallStatus.RUNNING || this.state.requestStatusMenuPublishing == Common.ECallStatus.RUNNING ||
+			this.state.requestStatusMenuOwner == Common.ECallStatus.RUNNING || this.state.requestStatusMenuLocation == Common.ECallStatus.RUNNING) {
 			pageBody = this.renderRefreshing();
-		} else if (this.state.requestStatus == Common.ECallStatus.NOK) {
+		} else if (this.state.requestStatus == Common.ECallStatus.NOK || this.state.requestStatusMenuType == Common.ECallStatus.NOK || 
+			this.state.requestStatusMenuSaga == Common.ECallStatus.NOK || this.state.requestStatusMenuPublishing == Common.ECallStatus.NOK ||
+			this.state.requestStatusMenuOwner == Common.ECallStatus.NOK || this.state.requestStatusMenuLocation == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert />);
 		} else if (this.props.user && this.props.user.hasAuthorization('BOOK:DISPLAY')) {
 			pageBody = this.renderDashboard();
@@ -111,23 +283,94 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	}
 
 	handleDefineFilterDefault(){
-		let dateFiltre = new Date();
-		let deltaJourFiltre = 14;
-		dateFiltre.setDate(dateFiltre.getDate()-deltaJourFiltre);
-		this.setState({filter_default: {'Date entrée station': '>' + DateUtils.formatDate(dateFiltre)}});
+		this.setState({filter_default: {"name_owner":["Jérémy","A acheter"]}});
+	}
+
+	handleSaveCell(saveRows:any){
+		console.log(saveRows)
+		/* Lance enregistrement dans la database */
+		this.setState({requestStatusSave: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'dashboard', 'edit']);
+		Common.postAsJson(url_, {process: "Bibliothèque", authorization:"BOOK_DASHBOARD:EDIT", saveRows:saveRows}, this.receiveDataSave.bind(this), this.receiveDataSaveError.bind(this));
+
+		this.requestData();
+	}
+	
+	receiveDataSave (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusSave: Common.ECallStatus.OK,
+			resultSave: myresult,	
+		});
+	}
+
+	receiveDataSaveError (): void {
+		this.setState({
+			requestStatusSave: Common.ECallStatus.NOK,
+			resultSave:[]
+		});
+	}
+
+	handleDelCell(delRow:any){
+		/* Lance suppression dans la database */
+		this.setState({requestStatusDel: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'dashboard', 'del']);
+		Common.postAsJson(url_, {process: "Bibliothèque", authorization:"BOOK_DASHBOARD:DEL", delRow:delRow}, this.receiveDataDel.bind(this), this.receiveDataDelError.bind(this));
+
+		this.requestData();
+	}
+	
+	receiveDataDel (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusDel: Common.ECallStatus.OK,
+			resultDel: myresult,	
+		});
+	}
+
+	receiveDataDelError (): void {
+		this.setState({
+			requestStatusDel: Common.ECallStatus.NOK,
+			resultDel:[]
+		});
+	}
+
+	handleAddCell(addRow:any){
+		/* Lance l'ajout dans la database */
+		this.setState({requestStatusAdd: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'dashboard', 'add']);
+		Common.postAsJson(url_, {process: "Bibliothèque", authorization:"BOOK_DASHBOARD:DEL", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataAddError.bind(this));
+
+		this.requestData();
+	}
+	
+	receiveDataAdd (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusAdd: Common.ECallStatus.OK,
+			resultAdd: myresult,	
+		});
+	}
+
+	receiveDataAddError (): void {
+		this.setState({
+			requestStatusAdd: Common.ECallStatus.NOK,
+			resultAdd:[]
+		});
 	}
 
 	renderDashboard (): React.ReactNode {
+		console.log(this.state.resultMenuSaga)
 		let col = [
-			new SpreadsheetColumn('name_type', "Catégorie", 50, "menu", "text", true, true, undefined, undefined, true),
-			new SpreadsheetColumn('name_saga', "Saga", 120, "menu", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn('number', "Numéro", 85, "text", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn('name', "Nom", 120, "text", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn("name_book_publishing", "Maison d'édition", 150, "menu", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn('name_owner', "Propriétaire", 150, "menu", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn('name_location', "Localisation", 150, "menu", "text", true, true, undefined, undefined),
+			new SpreadsheetColumn('name_type', "Catégorie", 50, "menu", "liste", true, true, true, true, true, this.state.resultMenuType),
+			new SpreadsheetColumn('name_saga', "Saga", 120, "menu", "liste", true, true, false, true, false, this.state.resultMenuSaga),
+			new SpreadsheetColumn('number', "Numéro", 85, "text", "text", true, true, false, true, false),
+			new SpreadsheetColumn('name', "Nom", 120, "text", "text", true, true, false, true, true),
+			new SpreadsheetColumn("name_book_publishing", "Maison d'édition", 150, "text", "liste", true, true, false, true, false, this.state.resultMenuPublishing),
+			new SpreadsheetColumn('name_owner', "Propriétaire", 150, "menu", "liste", true, true, true, true, true, this.state.resultMenuOwner),
+			new SpreadsheetColumn('name_location', "Localisation", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuLocation),
 		];
-		console.log(this.state.result)
+
 		/*
 		id: int
         id_type: int
@@ -187,6 +430,18 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		*/
 		let bandeau_recap = (this.renderBandeauRecap(0,0,0,0));
 
+		let edit:boolean = false;
+		let del:boolean = false;
+		let add:boolean = false;
+		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:EDIT")){
+			edit = true;
+		}
+		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:DEL")){	
+			del = true;
+		}
+		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:ADD")){	
+			add = true;
+		}
 		return (
 			<Row fullHeight>
 				<Box style={{width:"100%"}}>
@@ -207,8 +462,15 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 								rows={row} 
 								rowIndex={["id"]} 
 								selectedRow={this.state.selectedRow}
+								onSaveCell={this.handleSaveCell}
+								onDelCell={this.handleDelCell}
+								onAddCell={this.handleAddCell}
 								onClickRow={this.handleClickRow}
 								infoSupp = {true}
+								sortable_default = {["name_type", "name_saga", "number"]}
+								add={add}
+								delete={del}
+								edit={edit}
 							/>
 					</BoxBody>
 					<BoxFooter>

@@ -17,12 +17,12 @@ export class ParamComp extends React.PureComponent<ParamProps> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('pgm', 'Pgm', 50, "menu", "text", true, false, undefined, undefined, true, false, true),
-			new SpreadsheetColumn('gamme', 'Gamme', 120, "menu", "text", true, false, undefined, undefined, false, false, true),
-			new SpreadsheetColumn('cptGrGam', 'CptGrGam', 85, "menu", "int", true, false, undefined, undefined, false, false, true),
-			new SpreadsheetColumn('stations', 'Stations', 120, "text", "text", true, false, undefined, undefined, false, true, true),
-			new SpreadsheetColumn("deltaJour", 'Prépa coquille vide (jour en avance)', 150, "text", "int", true, false, undefined, undefined, false, true, true),
-			new SpreadsheetColumn("alerteDatePrepa", 'Alerte date prépa PV (jour en avance)', 150, "text", "int", true, false, undefined, undefined, false, true, true),
+			new SpreadsheetColumn('pgm', 'Pgm', 50, "menu", "text", true, false, true, false, true),
+			new SpreadsheetColumn('gamme', 'Gamme', 120, "menu", "text", true, false, false, false, true),
+			new SpreadsheetColumn('cptGrGam', 'CptGrGam', 85, "menu", "int", true, false, false, false, true),
+			new SpreadsheetColumn('stations', 'Stations', 120, "text", "text", true, false, false, true, true),
+			new SpreadsheetColumn("deltaJour", 'Prépa coquille vide (jour en avance)', 150, "text", "int", true, false, false, true, true),
+			new SpreadsheetColumn("alerteDatePrepa", 'Alerte date prépa PV (jour en avance)', 150, "text", "int", true, false, false, true, true),
 		];
 
 		let title="Paramétrage PFE - Process Métallisation";

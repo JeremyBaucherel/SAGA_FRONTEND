@@ -226,13 +226,13 @@ export class ParamComp extends React.PureComponent<ParamProps, ParamState> {
 	renderParam (): React.ReactNode {
 
 		let col = [
-			new SpreadsheetColumn('Gamme', 'Gamme', 250, "text", "text", true, true, undefined, undefined, false, true, true),
-			new SpreadsheetColumn('CptGrpGamme', 'Cpt Gr Gamme', 100, "menu", "text", true, true, undefined, undefined, false, true, true),
-			new SpreadsheetColumn('DescriptionSAP', 'Description SAP', 800, "text", "text", true, true, undefined, undefined, false, true, false),
-			new SpreadsheetColumn('PGM', 'PGM', 100, "menu", "liste", true, true, undefined, undefined, true, true, true, this.listeChoixPGM),
-			new SpreadsheetColumn('PA_TC', 'PA / TC', 100, "menu", "liste", true, true, undefined, undefined, false, true, true, this.listePATC),
-            new SpreadsheetColumn('processName', 'Process', 100, "menu", "liste", true, true, undefined, undefined, true, true, true, this.listeProcess),
-            new SpreadsheetColumn('statut', 'Statut', 100, "menu", "liste", true, true, undefined, undefined, true, true, true, this.listeStatut),
+			new SpreadsheetColumn('Gamme', 'Gamme', 250, "text", "text", true, true, false, true, true),
+			new SpreadsheetColumn('CptGrpGamme', 'Cpt Gr Gamme', 100, "menu", "text", true, true, false, true, true),
+			new SpreadsheetColumn('DescriptionSAP', 'Description SAP', 800, "text", "text", true, true, false, true, false),
+			new SpreadsheetColumn('PGM', 'PGM', 100, "menu", "liste", true, true, true, true, true, this.listeChoixPGM),
+			new SpreadsheetColumn('PA_TC', 'PA / TC', 100, "menu", "liste", true, true, false, true, true, this.listePATC),
+            new SpreadsheetColumn('processName', 'Process', 100, "menu", "liste", true, true, true, true, true, this.listeProcess),
+            new SpreadsheetColumn('statut', 'Statut', 100, "menu", "liste", true, true, true, true, true, this.listeStatut),
 		];
 
 		let row = Common.copy(this.state.result);

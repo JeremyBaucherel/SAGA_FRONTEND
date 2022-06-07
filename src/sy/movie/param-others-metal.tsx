@@ -60,11 +60,11 @@ export class ParamComp extends React.PureComponent<ParamProps, ParamState> {
 	render (): React.ReactNode {
 
 		let col = [
-			new SpreadsheetColumn('categorie', 'Catégorie', 150, "menu", "text", true, false, undefined, undefined, true, true, false),
-			new SpreadsheetColumn('nom', 'Nom', 170, "text", "text", true, false, undefined, undefined, false, false, true),
-			new SpreadsheetColumn('valeur', 'Valeur', 600, "text", "text", true, false, undefined, undefined, false, true, true),
-			new SpreadsheetColumn('description', 'Description', 600, "text", "text", true, false, undefined, undefined, false, true, false),
-			new SpreadsheetColumn('actif', 'Actif', 80, "menu", "boolean", true, false, undefined, undefined, true, true, false),
+			new SpreadsheetColumn('categorie', 'Catégorie', 150, "menu", "text", true, false, true, true, false),
+			new SpreadsheetColumn('nom', 'Nom', 170, "text", "text", true, false, false, false, true),
+			new SpreadsheetColumn('valeur', 'Valeur', 600, "text", "text", true, false, false, true, true),
+			new SpreadsheetColumn('description', 'Description', 600, "text", "text", true, false, false, true, false),
+			new SpreadsheetColumn('actif', 'Actif', 80, "menu", "boolean", true, false, true, true, false),
 		];
 
 		let title="Paramétrage Autres - Process Métallisation";

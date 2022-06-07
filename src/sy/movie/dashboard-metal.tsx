@@ -209,15 +209,15 @@ export class DashboardMetalComp extends React.PureComponent<IDashboardProps,IDas
 
 	renderDashboard (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('MSN', undefined, 50, "text", "text", true, true, undefined, undefined, true),
-			new SpreadsheetColumn('Gamme', undefined, 120, "menu", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn('CptGrGam', undefined, 85, "menu", "integer", true, true, undefined, undefined),
-			new SpreadsheetColumn('Ordre de Fab', undefined, 120, "text", "text", true, true, undefined, undefined),
-			new SpreadsheetColumn("Date Prépa SAP", undefined, 150, "date", "datetime", true, true, undefined, undefined),
-			new SpreadsheetColumn('Date Ajout OF', undefined, 150, "date", "datetime", true, true, undefined, undefined),
-			new SpreadsheetColumn('Date Maj PV', undefined, 150, "date", "datetime", true, true, undefined, undefined),
-			new SpreadsheetColumn('Date entrée station', undefined, 150, "date", "datetime", true, true, undefined, undefined),
-			new SpreadsheetColumn('Statut', undefined, 200, "menu", "text", true, true, undefined, undefined),
+			new SpreadsheetColumn('MSN', undefined, 50, "text", "text", true, true, true),
+			new SpreadsheetColumn('Gamme', undefined, 120, "menu", "text", true, true),
+			new SpreadsheetColumn('CptGrGam', undefined, 85, "menu", "integer", true, true),
+			new SpreadsheetColumn('Ordre de Fab', undefined, 120, "text", "text", true, true),
+			new SpreadsheetColumn("Date Prépa SAP", undefined, 150, "date", "datetime", true, true),
+			new SpreadsheetColumn('Date Ajout OF', undefined, 150, "date", "datetime", true, true),
+			new SpreadsheetColumn('Date Maj PV', undefined, 150, "date", "datetime", true, true),
+			new SpreadsheetColumn('Date entrée station', undefined, 150, "date", "datetime", true, true),
+			new SpreadsheetColumn('Statut', undefined, 200, "menu", "text", true, true),
 		];
 
 		let row = Common.copy(this.state.result);

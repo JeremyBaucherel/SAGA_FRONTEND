@@ -59,10 +59,10 @@ export class InformationComp extends React.PureComponent<ParamProps, ParamState>
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('version', 'Version', 150, "menu", "text", true, false, undefined, undefined, false, true, true),
-			new SpreadsheetColumn('target', 'Target', 150, "text", "text", true, false, undefined, undefined, false, true, true),
-			new SpreadsheetColumn('date', 'Date', 200, "date", "date", true, false, undefined, undefined, false, true, true),
-			new SpreadsheetColumn('description', 'Description', 1000, "text", "text", true, false, undefined, undefined, false, true, true),
+			new SpreadsheetColumn('version', 'Version', 150, "menu", "text", true, false, false, true, true),
+			new SpreadsheetColumn('target', 'Target', 150, "text", "text", true, false, false, true, true),
+			new SpreadsheetColumn('date', 'Date', 200, "date", "date", true, false, false, true, true),
+			new SpreadsheetColumn('description', 'Description', 1000, "text", "text", true, false, false, true, true),
 		];
 
 		let title="Information";

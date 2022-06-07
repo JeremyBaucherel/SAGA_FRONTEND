@@ -60,7 +60,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('name_owner', 'Nom du propriétaire', 500, "text", "text", true, false, undefined, undefined, true, true, true),
+			new SpreadsheetColumn('name_owner', 'Nom du propriétaire', 500, "text", "text", true, false, true, true, true),
 		];
 
 		let title="Bibliothèque - Paramétrage des propriétaires";

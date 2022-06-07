@@ -59,8 +59,8 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('nom', 'Nom', 100, "text", "text", true, true, undefined, undefined, true, true, true),
-			new SpreadsheetColumn('description', 'Description', 100, "text", "text", true, true, undefined, undefined, false, true, false),
+			new SpreadsheetColumn('nom', 'Nom', 100, "text", "text", true, true, true, true, true),
+			new SpreadsheetColumn('description', 'Description', 100, "text", "text", true, true, false, true, false),
 		];
 
 		let title="Paramétrage des Autorisations";
