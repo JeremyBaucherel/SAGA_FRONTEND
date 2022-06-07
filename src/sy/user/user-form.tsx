@@ -60,59 +60,6 @@ class _RoleList extends React.Component<IRoleListProps, IRoleListState> {
 }
 
 
-interface IGammeListProps {
-	user?: Store.User;
-	selectedGammes?: number[]; // A list of selected roles names
-	onSelectionChange: {(newSelection: any): void};
-	style?:any;
-}
-
-interface IGammeListState{
-	gammes: {text: string, id: string}[];
-}
-
-class _GammeList extends React.Component<IGammeListProps, IGammeListState> {
-
-	constructor (props: IGammeListProps) {
-		super(props);
-
-		this.state = {
-			gammes: [],
-		};
-	}
-
-	componentDidMount (): void {
-		this.requestData();
-	}
-
-	receiveData (resp: Api.IResponse<any>): void {
-		let gammes: {text: string, id: string}[] = [];
-		for (let i = 0; i < resp.body.length ; ++i) {
-			gammes.push({
-				text: "[Cpt"+resp.body[i].cptgrgamme+"] "+resp.body[i].gamme+" - "+resp.body[i].description,
-				id: resp.body[i].id
-			});
-		}
-		this.setState({gammes: gammes});
-	}
-
-	receiveDataError (): void {
-		// FIXME : Should handle error
-	}
-
-	requestData (): void {
-		Api.getGammes(this.receiveData.bind(this), this.receiveDataError.bind(this));
-	}
-
-	render (): React.ReactNode {
-		var disabled = true;
-		if(this.props.user && (this.props.user.hasAuthorization('UTILISATEUR_GAMME:EDIT') || this.props.user.hasAuthorization('UTILISATEUR:EDIT'))){
-			disabled = false;
-		}
-		return (<FormList disabled={disabled} items={this.state.gammes} onSelectionChange={this.props.onSelectionChange} style={this.props.style} enableMultiSelection value={this.props.selectedGammes} />);
-	}
-}
-
 interface IUserFormProps {
 	admin: any;
 	creating: boolean;
@@ -290,15 +237,6 @@ export class UserForm extends React.Component<IUserFormProps, IUserFormState> {
 									</Row>
 									<Row>
 											{emailActivation}
-									</Row>
-								</Col>
-								<Col>
-									<Row>
-									<h2>Liste des gammes</h2>
-									{buttonReturn}
-									</Row>
-									<Row fullHeight style={{paddingRight:"20px", paddingBottom:"20px"}}>
-										<_GammeList style={{width:"100%"}} onSelectionChange={this.handleGammeChange.bind(this)} selectedGammes={this.state.gammes} user={this.props.user}/>
 									</Row>
 								</Col>
 						</BoxBody>

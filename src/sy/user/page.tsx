@@ -175,7 +175,7 @@ class _UserAutorisations extends React.Component<_IUserAuthorisationsProps, _IUs
         }
 
         return (
-            <Row style={{paddingRight:"20px", paddingBottom:"20px", height: "90%"}}>
+            <Row style={{paddingRight:"20px"}}>
                 { roles.length > 0
                 ? (<BoxBody verticalScroll>{roles}</BoxBody>)
                 : (<BoxBody center><strong className="subtle">Cet utilisateur ne dispose d'aucune autorisation.</strong></BoxBody>)
@@ -185,94 +185,6 @@ class _UserAutorisations extends React.Component<_IUserAuthorisationsProps, _IUs
     }
 }
 
-
-interface _IUserAuthorisationsGammeProps {
-    logon: string;
-}
-
-interface _IUserAuthorisationsGammeState {
-    gammes:  Api.IUserGamme[];
-}
-
-class _UserAutorisationsGamme extends React.Component<_IUserAuthorisationsGammeProps, _IUserAuthorisationsGammeState> {
-
-    request: Api.JsonCall<Api.IUserRolesResponse>;
-
-    constructor (props: _IUserAuthorisationsGammeProps) {
-        super(props);
-
-        this.request = new Api.JsonCall<Api.IUserRolesResponse>();
-        this.request.okCallback = this.handleReceiveData.bind(this);
-        this.request.nokCallback = this.handleReceiveDataError.bind(this);
-
-        this.state = {gammes: []};
-    }
-
-    componentDidMount (): void {
-        this.requestData();
-    }
-
-    handleReceiveData (resp: Api.IUserGammesResponse): void {
-        this.setState({gammes: resp.body});
-        console.log("OK")
-    }
-
-    handleReceiveDataError (): void {
-        this.setState({gammes: []});
-    }
-
-    requestData (): void {
-        this.request.get(['api', 'utilisateurs', this.props.logon, 'autorisationsgammes']);
-    }
-
-    render (): React.ReactNode {
-        if (this.request.isOk()){
-            return this.renderOk();
-        } else {
-            return this.renderLoading();
-        }
-    }
-
-    renderLoading (): React.ReactNode {
-        return (
-            <Row>
-                 <Spinner />
-            </Row>
-        );
-    }
-
-    renderOk (): React.ReactNode {
-        var gammes =  [];
-        var gammeCpt = [];
-        var gamme = "";
-
-        for (let i = 0; i < this.state.gammes.length; i++) {
-            if( (i+1)==this.state.gammes.length){
-                gammeCpt.push(<TreeNode key={this.state.gammes[i].id} label={this.state.gammes[i].description} secondaryLabel={this.state.gammes[i].cptgrgamme} />)
-            }
-            if((gamme != this.state.gammes[i].gamme && gamme != "") || (i+1)==this.state.gammes.length){
-                gammes.push((
-                    <TreeNode key={i} label={(<strong>Gamme {gamme}</strong>)}>
-                        {gammeCpt}
-                    </TreeNode>
-                ));
-                gammeCpt = [];
-            }
-            gammeCpt.push(<TreeNode key={this.state.gammes[i].id} label={this.state.gammes[i].description} secondaryLabel={this.state.gammes[i].cptgrgamme} />)
-
-            gamme = this.state.gammes[i].gamme;
-        }
-
-        return (
-            <Row style={{paddingRight:"20px", paddingBottom:"20px", height: "100%"}}>
-                { gammes.length > 0
-                ? (<BoxBody verticalScroll>{gammes}</BoxBody>)
-                : (<BoxBody center><strong className="subtle">Cet utilisateur ne dispose d'aucune autorisation.</strong></BoxBody>)
-                }
-            </Row>
-        );
-    }
-}
 
 interface IUserMatchProps {
     logon: string;
@@ -423,12 +335,10 @@ export default class UserPageComponent extends React.Component<IUserPageProps, I
                                 <Col>
                                     <Row style={{paddingBottom:"20px"}}><h2>Informations personnelles</h2></Row>
                                     <_UserDisplay logon={this.state.user.logon ? this.state.user.logon : ''} />
-                                    <Row><h2>Rôles et autorisations</h2></Row>
-                                    <_UserAutorisations logon={this.state.user.logon ? this.state.user.logon : ''} />
                                 </Col>
                                 <Col>
-                                    <Row><h2>Liste des gammes</h2></Row>
-                                    <_UserAutorisationsGamme logon={this.state.user.logon ? this.state.user.logon : ''} />
+                                    <Row><h2>Rôles et autorisations</h2></Row>
+                                    <_UserAutorisations logon={this.state.user.logon ? this.state.user.logon : ''} />
                                 </Col>
                             </BoxBody>
                             <BoxFooter>

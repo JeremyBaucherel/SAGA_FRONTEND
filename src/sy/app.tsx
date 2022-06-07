@@ -23,26 +23,24 @@ import {
 } from './user';
 import {HomePage} from './home-page';
 
-import {DashboardMetal} from './metal/dashboard-metal';
-import {ParamPfeMetal} from './metal/param-pfe-metal';
-import {ParamGtiMetal} from './metal/param-gti-metal';
-import {TemplateFullConfMetal} from './metal/templatefullconf-metal';
-import {ParamOthersMetal} from './metal/param-others-metal';
-import {RoutingGTIMetal} from './metal/routingGTI-metal';
+import {DashboardMetal} from './movie/dashboard-metal';
+import {ParamPfeMetal} from './movie/param-pfe-metal';
+import {ParamGtiMetal} from './movie/param-gti-metal';
+import {TemplateFullConfMetal} from './movie/templatefullconf-metal';
+import {ParamOthersMetal} from './movie/param-others-metal';
+import {RoutingGTIMetal} from './movie/routingGTI-metal';
 
-import {DashboardOptique} from './optique/dashboard-optique';
-import {DashboardBdoOptique} from './optique/dashboard-bdo-optique'
-import {ParamOthersOptique} from './optique/param-others-optique';
-import {ParamPfeOptique} from './optique/param-pfe-optique';
-import {ParamGtiOptique} from './optique/param-gti-optique';
-import {TypeCableOptique} from './optique/type-cable-optique';
-import {TypePinOptique} from './optique/type-pin-optique';
-import {RoutingGTIOptique} from './optique/routingGTI-optique';
-
-import {DashboardComs} from './coms/dashboard-coms';
+import {DashboardBook} from './book/dashboard-book';
+import {ParamOthersOptique} from './book/param-others-optique';
+import {ParamPfeOptique} from './book/param-pfe-optique';
+import {ParamLocation} from './book/param-location';
+import {ParamOwner} from './book/param-owner';
+import {ParamSaga} from './book/param-saga';
+import {ParamAuthor} from './book/param-author'
+import {ParamType} from './book/param-type';
+import {ParamBookPublishing} from './book/param-bookpublishing';
 
 import {ParamOthersGlobal} from './menu/parameters';
-import {RoutingGTI} from './menu/routingGti';
 import {Information} from './menu/information';
 
 import {Autorisation} from './menu/autorisation'
@@ -267,14 +265,16 @@ class SAGARouterComp extends React.Component<ISAGARouterProps, ISAGARouterState>
 		return (
 			<div style={{height: "calc(100%)", boxSizing: "border-box"}}>
 				<Switch>
-					<Route exact path="/optique/dashboard" component={DashboardOptique} />
-					<Route exact path="/optique/dashboard-bdo-optique" component={DashboardBdoOptique} />
+					<Route exact path="/book/dashboard" component={DashboardBook} />
 					<Route exact path="/optique/parampfe" component={ParamPfeOptique} />
-					<Route exact path="/optique/paramgti" component={ParamGtiOptique} />
 					<Route exact path="/optique/paramautres" component={ParamOthersOptique} />
-					<Route exact path="/optique/typecable" component={TypeCableOptique} />
-					<Route exact path="/optique/typepin" component={TypePinOptique} />
-					<Route exact path="/optique/routingGTI" component={RoutingGTIOptique} />
+
+					<Route exact path="/book/bookpublishing" component={ParamBookPublishing} />
+					<Route exact path="/book/owner" component={ParamOwner} />
+					<Route exact path="/book/SAGA" component={ParamSaga} />
+					<Route exact path="/book/auteur" component={ParamAuthor} />
+					<Route exact path="/book/type" component={ParamType} />
+					<Route exact path="/book/location" component={ParamLocation} />
 
 					<Route exact path="/metal/dashboard" component={DashboardMetal} />
 					<Route exact path="/metal/parampfe" component={ParamPfeMetal} />
@@ -283,10 +283,7 @@ class SAGARouterComp extends React.Component<ISAGARouterProps, ISAGARouterState>
 					<Route exact path="/metal/templatefullconf" component={TemplateFullConfMetal} />
 					<Route exact path="/metal/routingGTI" component={RoutingGTIMetal} />
 
-					<Route exact path="/coms/dashboard" component={DashboardComs} />
-
 					<Route exact path="/parameters" component={ParamOthersGlobal} />
-					<Route exact path="/routingGTI" component={RoutingGTI} />
 					<Route exact path="/information" component={Information} />
 					<Route exact path="/param/Role" component={Role} /> 
 					<Route exact path="/param/Autorisation" component={Autorisation} /> 

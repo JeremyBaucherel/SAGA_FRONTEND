@@ -61,25 +61,25 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 	}
 
 	renderProcessButton(): React.ReactNode {
-		let isOptique = Common.hasAuthorization(this.props.user, 'OPTIQUE:DISPLAY');
-        let isMetal = Common.hasAuthorization(this.props.user, 'METAL:DISPLAY');
+		let isBook = Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY');
+        let isMovie = Common.hasAuthorization(this.props.user, 'MOVIE:DISPLAY');
         let isComsE = Common.hasAuthorization(this.props.user, 'COMS-E:DISPLAY');
         let isComsM = Common.hasAuthorization(this.props.user, 'COMS-M:DISPLAY');
 
-		let buttonOptique = null;
-		let buttonMetal = null;
+		let buttonBook = null;
+		let buttonMovie = null;
 		let buttonComsE = null;
 		let buttonComsM = null;
-		if(isOptique){buttonOptique = (<Tooltip text="Process Optique"><Button icon={EIcon.SETTINGS_INPUT_COMPONENT} secondary to="/optique/dashboard" /></Tooltip>);}
-		if(isMetal){buttonMetal = (<Tooltip text="Process Métallisation"><Button icon={EIcon.SHOW_CHART} secondary to="/metal/dashboard" /></Tooltip>);}
-		if(isComsE){buttonComsE = (<Tooltip text="Process Coms Elec"><Button icon={EIcon.SHARE} secondary to="/coms/dashboard" /></Tooltip>);}
+		if(isBook){buttonBook = (<Tooltip text="Bibliothèque personelle"><Button icon={EIcon.MENU_BOOK} secondary to="/book/dashboard" /></Tooltip>);}
+		if(isMovie){buttonMovie = (<Tooltip text="Filmothèque personelle"><Button icon={EIcon.LOCAL_MOVIES} secondary to="/movie/dashboard" /></Tooltip>);}
+		if(isComsE){buttonComsE = (<Tooltip text="Process Coms Elec"><Button icon={EIcon.MOVIE} secondary to="/coms/dashboard" /></Tooltip>);}
 		if(isComsM){buttonComsM = (<Tooltip text="Process Coms Méca"><Button icon={EIcon.BUILD} secondary to="/coms/dashboard" /></Tooltip>);}
 
 		return(
 			<div style={{right:"300px", position: "fixed", width: '100px', textAlign: "right"}}>
 				<ButtonBar>
-					{buttonOptique}
-					{buttonMetal}
+					{buttonBook}
+					{buttonMovie}
 					{buttonComsE}
 					{buttonComsM}
 				</ButtonBar>
@@ -108,12 +108,6 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 				paramGlobal = (<MenuItem key="param_global" to="/parameters" icon={EIcon.SETTINGS} text="Paramètres généraux" />);
 			}
 
-			let paramRoutingGTI = null;
-			if(this.props.user && this.props.user.hasAuthorization('RoutingGTI:DISPLAY'))
-			{
-				paramRoutingGTI = (<MenuItem key="param_routingGTI" to="/routingGTI" icon={EIcon.EDIT} text="Routing GTI" />);
-			}
-
 			let sepGlobal = null;
 			if(this.props.user && (this.props.user.hasAuthorization('PARAMETRE_GLOBAL:DISPLAY') || this.props.user.hasAuthorization('ROLE_AUTORISATION:DISPLAY') || this.props.user.hasAuthorization('RoutingGTI_DISPLAY')))
 			{
@@ -131,13 +125,12 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 							{paramUserList}
 							<MenuSeparator key="sepUser" />
 
-							{paramRoutingGTI}
 							{paramRoleAut}
 							{paramGlobal}
 							{sepGlobal}
 
 							<MenuItem key="bug" to={"mailto:jeremy.j.baucherel.external@airbus.com?subject=[SAGA] Bug"} icon={EIcon.BUG_REPORT}>Signaler un bug</MenuItem>
-							<MenuItem key="improvement" to="https://gheprivate.intra.corp/SAGA/SAGA/issues" icon={EIcon.FEED_BACK}>Proposer une amélioration</MenuItem>
+							<MenuItem key="improvement" to="https://gheprivate.intra.corp/SAGA/SAGA/issues" icon={EIcon.FEEDBACK}>Proposer une amélioration</MenuItem>
 							<MenuItem key="information" to="/information" icon={EIcon.INFO}>Information</MenuItem>
 							<MenuSeparator key="sepFin" />
 							

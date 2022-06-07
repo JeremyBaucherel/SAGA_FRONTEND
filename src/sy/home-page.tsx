@@ -26,24 +26,24 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         let isComsE = Common.hasAuthorization(this.props.user, 'COMS-E:DISPLAY');
         let isComsM = Common.hasAuthorization(this.props.user, 'COMS-M:DISPLAY');
 
-        let isOnlyOptique = (isBook && !isMovie && !isComsE && !isComsM);
-        let isOnlyMetal = (isMovie && !isBook && !isComsE && !isComsM);
+        let isOnlyBook = (isBook && !isMovie && !isComsE && !isComsM);
+        let isOnlyMovie = (isMovie && !isBook && !isComsE && !isComsM);
         let isOnlyComsE = (isComsE && !isBook && !isMovie && !isComsM);
         let isOnlyComsM = (isComsM && !isBook && !isMovie && !isComsE);
 
-        let affOptique;
-        if(isBook){affOptique = (this.renderOptique())};
-        let affMetal;
-        if(isMovie){affMetal = (this.renderMetal())};
+        let affBook;
+        if(isBook){affBook = (this.renderBook())};
+        let affMovie;
+        if(isMovie){affMovie = (this.renderMovie())};
         let affComsE;
         if(isComsE){affComsE = (this.renderComsE())};
         let affComsM;
         if(isComsM){affComsM = (this.renderComsM())};
 
-        if (isOnlyOptique) {
-            return (<ReactRouterDOM.Redirect to="/optique/dashboard" />);
-        } else if (isOnlyMetal) {
-            return (<ReactRouterDOM.Redirect to="/metal/dashboard" />);
+        if (isOnlyBook) {
+            return (<ReactRouterDOM.Redirect to="/book/dashboard" />);
+        } else if (isOnlyMovie) {
+            return (<ReactRouterDOM.Redirect to="/movie/dashboard" />);
         } else if (isOnlyComsE) {
             return (<ReactRouterDOM.Redirect to="/coms/dashboard" />);
         } else if (isOnlyComsM) {
@@ -60,8 +60,8 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
                             <Box style={{width:"100%"}}>
                                 <BoxBody style={{display:'flex', alignItems:'center'}}>
                                     <Col style={{display:'flex', flexDirection:'column'}}>                           
-                                        {affOptique}
-                                        {affMetal}
+                                        {affBook}
+                                        {affMovie}
                                         {affComsE}
                                         {affComsM}
                                     </Col>        
@@ -77,16 +77,16 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         }
     }
     
-    renderOptique(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'OPTIQUE:DISPLAY')) {
+    renderBook(): React.ReactNode {
+        if (Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
                         <HFlex>
-                            <Button icon={EIcon.SETTINGS_INPUT_COMPONENT} secondary to="/optique/dashboard" />
+                            <Button icon={EIcon.MENU_BOOK} secondary to="/book/dashboard" />
                             <VFlex>
-                                <ReactRouterDOM.Link to="/optique/dashboard"><strong>Process Fibre Optique</strong></ReactRouterDOM.Link>
-                                <p>Dashboard du process Fibre Optique</p>
+                                <ReactRouterDOM.Link to="/book/dashboard"><strong>Bibliothèque personelle</strong></ReactRouterDOM.Link>
+                                <p>Liste des Romans, BD, Encyclopédie etc</p>
                             </VFlex>
                         </HFlex>
                     </BoxBody>    
@@ -96,16 +96,16 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         return null;
     }
 
-    renderMetal(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'METAL:DISPLAY')) {
+    renderMovie(): React.ReactNode {
+        if (Common.hasAuthorization(this.props.user, 'MOVIE:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
                         <HFlex>
-                            <Button icon={EIcon.SHOW_CHART} secondary to="/metal/dashboard" />
+                            <Button icon={EIcon.LOCAL_MOVIES} secondary to="/movie/dashboard" />
                             <VFlex>
-                                <ReactRouterDOM.Link to="/metal/dashboard"><strong>Process Métal</strong></ReactRouterDOM.Link>
-                                <p>Dashboard du process Metal</p>
+                                <ReactRouterDOM.Link to="/movie/dashboard"><strong>Filmothèque personelle virtuelle</strong></ReactRouterDOM.Link>
+                                <p>Liste des Films disponible dans le NAS</p>
                             </VFlex>
                         </HFlex>
                     </BoxBody> 
@@ -121,7 +121,7 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
                         <HFlex>
-                            <Button icon={EIcon.SHARE} secondary to="/coms/dashboard" />
+                            <Button icon={EIcon.MOVIE} secondary to="/coms/dashboard" />
                             <VFlex>
                                 <ReactRouterDOM.Link to="/coms/dashboard"><strong>Process COMS Elec</strong></ReactRouterDOM.Link>
                                 <p>Dashboard du process COMS Elec</p>

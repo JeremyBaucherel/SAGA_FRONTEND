@@ -100,28 +100,7 @@ export class UserDisplayAllPage extends React.Component<IUserDisplayAllProps, IU
                         role.push(<div>{user.roles[a]}</div>);
                     }
                 }
-                let gamme = [];
-                if(user.gammes.length>0)
-                {    
-                    let gamold = '';     
-                    let cptgr = '';
-                    let tab_g = []
-                    for(let a = 0 ; a < user.gammes.length ; a++){
-                        tab_g = user.gammes[a].split('|');
-                        if(tab_g[1] != gamold && gamold != '')
-                        {
-                            gamme.push(<div>{gamold + " (" + cptgr + ")"}</div>);
-                            cptgr = ''
-                        }
-                        if(cptgr == ''){
-                            cptgr = tab_g[0];
-                        }else{
-                            cptgr = cptgr + ', ' + tab_g[0];
-                        }
-                        gamold = tab_g[1];
-                    }
-                    gamme.push(<div>{gamold + " (" + cptgr + ")"}</div>);
-                }
+
                 var userEdit;
                 if(this.props.user.hasAuthorization('UTILISATEUR:EDIT')){
                     userEdit = (<Tooltip text="Modifier le compte"><Button secondary to={'/utilisateurs/' + user.logon + '/modifier'} icon={EIcon.EDIT} /></Tooltip>);
@@ -133,7 +112,6 @@ export class UserDisplayAllPage extends React.Component<IUserDisplayAllProps, IU
                                 <Col size={2}><span style={{fontSize:'1.2em', textAlign:'left'}}>{user.familyName}</span></Col>
                                 <Col size={4}><span style={{fontSize:'1.2em', textAlign:'left'}}>{role}</span></Col>
                                 <Col size={4}><span style={{fontSize:'1.2em', textAlign:'left'}}>{auth}</span></Col>
-                                <Col><span style={{fontSize:'1.2em', textAlign:'left'}}>{gamme}</span></Col>
                                 <Col size={1}>{userEdit}</Col>
                             </Row>,
                             <Row><Col>&nbsp;</Col></Row>,
@@ -169,7 +147,6 @@ export class UserDisplayAllPage extends React.Component<IUserDisplayAllProps, IU
                                         <Col size={2}><span style={{fontSize:'1.2em', textAlign:'right', fontWeight:'bold', height:'30px'}}>Nom</span></Col>
                                         <Col size={4}><span style={{fontSize:'1.2em', textAlign:'right', fontWeight:'bold', height:'30px'}}>Roles</span></Col>
                                         <Col size={3}><span style={{fontSize:'1.2em', textAlign:'right', fontWeight:'bold', height:'30px'}}>Autorisations</span></Col>
-                                        <Col><span style={{fontSize:'1.2em', textAlign:'right', fontWeight:'bold', height:'30px'}}>Gammes (CptGr)</span></Col>
                                         <Col size={1}>&nbsp;</Col>
                                     </Row>
                                     <Row><Col style={{borderTop:'1px solid black'}}>&nbsp;</Col></Row>
