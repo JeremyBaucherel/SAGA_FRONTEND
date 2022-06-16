@@ -60,7 +60,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('name_author', 'Nom de l\'auteur', 500, "text", "text", true, false, true, true, true),
+			new SpreadsheetColumn('name_author', 'Nom de l\'auteur', 500, "text", "text", true, true, true, true, true),
 		];
 
 		let title="Bibliothèque - Paramétrage des Auteurs";
@@ -91,6 +91,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 						style={{textAlign:"center"}}
 						add={add}
 						onAddCell={this.handleAddCell}
+
 						/>);
 					} else {
 						pageBody = (<NotAuthorizedAlert />);

@@ -31,8 +31,6 @@ import {ParamOthersMetal} from './movie/param-others-metal';
 import {RoutingGTIMetal} from './movie/routingGTI-metal';
 
 import {DashboardBook} from './book/dashboard-book';
-import {ParamOthersOptique} from './book/param-others-optique';
-import {ParamPfeOptique} from './book/param-pfe-optique';
 import {ParamLocation} from './book/param-location';
 import {ParamOwner} from './book/param-owner';
 import {ParamSaga} from './book/param-saga';
@@ -266,9 +264,6 @@ class SAGARouterComp extends React.Component<ISAGARouterProps, ISAGARouterState>
 			<div style={{height: "calc(100%)", boxSizing: "border-box"}}>
 				<Switch>
 					<Route exact path="/book/dashboard" component={DashboardBook} />
-					<Route exact path="/optique/parampfe" component={ParamPfeOptique} />
-					<Route exact path="/optique/paramautres" component={ParamOthersOptique} />
-
 					<Route exact path="/book/bookpublishing" component={ParamBookPublishing} />
 					<Route exact path="/book/owner" component={ParamOwner} />
 					<Route exact path="/book/SAGA" component={ParamSaga} />

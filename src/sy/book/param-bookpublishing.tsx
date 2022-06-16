@@ -60,7 +60,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('name_book_publishing', 'Nom de la maison d\'édition', 500, "text", "text", true, false, true, true, true),
+			new SpreadsheetColumn('name_book_publishing', 'Nom de la maison d\'édition', 500, "text", "text", true, true, true, true, true),
 		];
 
 		let title="Bibliothèque - Paramétrage des Maisons d'édition";

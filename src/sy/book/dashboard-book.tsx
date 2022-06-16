@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactRouterDOM from 'react-router-dom';
-import {EIcon, EPosition, Page, ETrigger, PageBody, Row, Button, ButtonBar, Spreadsheet, SpreadsheetColumn, Box, Padding, BoxBody, BoxFooter, Spinner, Popover, Tooltip} from 'stk';
+import {EIcon, EPosition, Page, ETrigger, PageBody, Row, Button, ButtonBar, Spreadsheet, SpreadsheetColumn, Box, Popup, PopupTitle, PopupBody, Padding, BoxBody, BoxFooter, Spinner, Popover, Tooltip} from 'stk';
 import {Toolbar, ToolbarTitle, ToolbarButtons} from '../../ui/toolbar';
 import * as Common from '../api/common';
 import {NotAuthorizedAlert} from '../not-authorized-page';
@@ -38,7 +38,11 @@ interface IDashboardState {
 	requestStatusMenuOwner: Common.ECallStatus;
 	requestStatusMenuLocation: Common.ECallStatus;
 
+	resultReturnBook: any;
+	requestStatusReturnBook: Common.ECallStatus;
+
 	selectedRow: number;
+	popupReturnBookShown: boolean;
 }
 
 export class DashboardBookComp extends React.PureComponent<DashboardProps, IDashboardState> {
@@ -70,8 +74,12 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			requestStatusMenuPublishing: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuOwner: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuLocation: Common.ECallStatus.NOT_STARTED,
+			
+			resultReturnBook: {},
+			requestStatusReturnBook: Common.ECallStatus.NOT_STARTED,
 
 			selectedRow:-1,
+			popupReturnBookShown: false,
 		};
 
 		this.handleClickRow = this.handleClickRow.bind(this);
@@ -81,8 +89,13 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		this.handleAddCell = this.handleAddCell.bind(this);
 		this.handleSaveCell = this.handleSaveCell.bind(this);
 		this.handleDelCell = this.handleDelCell.bind(this);
+
+		this.handleAffPopupReturnBook = this.handleAffPopupReturnBook.bind(this);
+		this.handleCancelReturnBook = this.handleCancelReturnBook.bind(this);
+		this.handleReturnBook = this.handleReturnBook.bind(this);
 	}
-	
+
+
 	componentDidMount (): void {
 		this.requestData();
 		this.requestMenuType();
@@ -239,6 +252,39 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		}
 	}
 
+    handleAffPopupReturnBook (): void {
+        this.setState({popupReturnBookShown: true})
+    }
+
+    handleCancelReturnBook (): void {
+        this.setState({popupReturnBookShown: false})
+        // On désélectionne la ligne
+        this.setState({selectedRow: -1})
+    }
+
+	handleReturnBook():void {
+		this.setState({requestStatusReturnBook: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'book', 'dashboard', 'valretour']);
+		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BOOK:EDIT"}, this.receiveReturnBook.bind(this), this.receiveReturnBookError.bind(this));
+		this.handleCancelReturnBook();
+		this.requestData();
+	}
+
+	receiveReturnBook (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusReturnBook: Common.ECallStatus.OK,
+			resultReturnBook: myresult,	
+		});	
+	}
+
+	receiveReturnBookError (): void {
+		this.setState({
+			requestStatusReturnBook: Common.ECallStatus.NOK,
+			resultReturnBook:[]
+		});
+	}
+
 	render (): React.ReactNode {
 		let pageBody: React.ReactNode = '';
 
@@ -359,75 +405,72 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		});
 	}
 
+
 	renderDashboard (): React.ReactNode {
-		console.log(this.state.resultMenuSaga)
+		//new SpreadsheetColumn('id', "id", 50, "text", "text", true, true, true, false, false),
+
 		let col = [
 			new SpreadsheetColumn('name_type', "Catégorie", 50, "menu", "liste", true, true, true, true, true, this.state.resultMenuType),
-			new SpreadsheetColumn('name_saga', "Saga", 120, "menu", "liste", true, true, false, true, false, this.state.resultMenuSaga),
+			new SpreadsheetColumn('name_saga', "Saga", 120, "text", "liste", true, true, false, true, false, this.state.resultMenuSaga),
 			new SpreadsheetColumn('number', "Numéro", 85, "text", "text", true, true, false, true, false),
 			new SpreadsheetColumn('name', "Nom", 120, "text", "text", true, true, false, true, true),
 			new SpreadsheetColumn("name_book_publishing", "Maison d'édition", 150, "text", "liste", true, true, false, true, false, this.state.resultMenuPublishing),
 			new SpreadsheetColumn('name_owner', "Propriétaire", 150, "menu", "liste", true, true, true, true, true, this.state.resultMenuOwner),
 			new SpreadsheetColumn('name_location', "Localisation", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuLocation),
+			new SpreadsheetColumn('authors', "Auteur", 150, "text", "text", true, true, true, false, false),
+			new SpreadsheetColumn('borrower', "Prêté", 150, "text", "text", true, true, true, true, false),
+			new SpreadsheetColumn('borrowing_date', "Date de prêt", 100, "date", "date", true, true, true, true, false),
 		];
 
-		/*
-		id: int
-        id_type: int
-        name_type: str
-        id_saga: int
-        name_saga: str
-        number: str
-        name: int
-        id_book_publishing: int
-        name_book_publishing: bool
-        id_owner: int
-        name_owner: str
-        id_location: int
-        name_location: str
-		*/
 		let row = Common.copy(this.state.result);
 		let dateJour = new Date();
 		/*
-		
-
 		let tab_gamme = [];
 		let tab_cptGrGam = [];
 		let nb_MSN_Calcules = 0;
 		let nb_MSN_OK = 0;
 		let nb_MSN_KO = 0;
 		let nb_MSN_Retard = 0;
+		*/
+		
+		var tabBorrower = [];
 
 		// Définition des styles
 		for(var ligne in row)
 		{
-			let dateEntreeStation = row[ligne]['Date entrée station'];
-			let dateEntreeStationFormate = null;
-			if(dateEntreeStation != null)
+			let datePret = row[ligne]['borrowing_date'];
+			let datePretFormate = null;
+			if(datePret != "")
 			{
-				dateEntreeStationFormate = DateUtils.parseDateDatabase(dateEntreeStation);
-			}else{
-				dateEntreeStationFormate = new Date(1900, 0, 1, 0, 0);
+				datePretFormate = DateUtils.parseDateDatabase(datePret);
+				
+				let dateAlerte = datePretFormate;
+				dateAlerte.setDate(datePretFormate.getDate()+180);
+
+				if(dateJour > dateAlerte){
+					row[ligne]['borrowing_date'] =(<div style={{backgroundColor:"#FF0000", color:"#FFFFFF", fontWeight:'bold'}}>{row[ligne]['borrowing_date']}</div>);
+				}
+
+				tabBorrower.push(row[ligne]['id']);
 			}
 
-			// Colonne Date
-			let dateJourCompare = dateJour.getFullYear() + "-" + String(dateJour.getMonth() + 1).padStart(2, '0') + "-" + String(dateJour.getDate()).padStart(2, '0');
-			row[ligne]['Date Prépa SAP'] = this.renderDateColor(row[ligne]['Date Prépa SAP'], dateJourCompare);
-			row[ligne]['Date Ajout OF'] = this.renderDateColor(row[ligne]['Date Ajout OF'], dateJourCompare);
-			row[ligne]['Date Maj PV'] = this.renderDateColor(row[ligne]['Date Maj PV'], dateJourCompare);
-			row[ligne]['Date entrée station'] = this.renderDateBold(row[ligne]['Date entrée station'], dateJourCompare);
 
+			// Colonne Date
+			//let dateJourCompare = dateJour.getFullYear() + "-" + String(dateJour.getMonth() + 1).padStart(2, '0') + "-" + String(dateJour.getDate()).padStart(2, '0');
+
+			
 			// Tableau listant les gammes et Compteurs
+			/*
 			tab_gamme.push(row[ligne]['Gamme']);
 			tab_cptGrGam.push(row[ligne]['CptGrGam']);
 
 			nb_MSN_Calcules = nb_MSN_Calcules + 1;
+			*/
 		}
 
 		// Garde les valeurs uniques
-		tab_gamme = Array.from(new Set(tab_gamme)).sort();
-		tab_cptGrGam = Array.from(new Set(tab_cptGrGam)).sort();
-		*/
+		//tab_gamme = Array.from(new Set(tab_gamme)).sort();
+
 		let bandeau_recap = (this.renderBandeauRecap(0,0,0,0));
 
 		let edit:boolean = false;
@@ -442,12 +485,46 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:ADD")){	
 			add = true;
 		}
+
+		let buttonAffFormAddAuthor: React.ReactNode = (null);
+
+		// Si diff de -1 alors on a sélectionné une ligne du tableau
+		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BOOK:EDIT')){
+
+			if(tabBorrower.indexOf(this.state.selectedRow) != -1){
+
+				if(!this.state.popupReturnBookShown){
+				
+					buttonAffFormAddAuthor = (
+						<Button icon={EIcon.ASSIGNMENT_RETURN} secondary onClick={this.handleAffPopupReturnBook}>&nbsp;Livre rendu</Button>
+					);
+					
+				}else{
+					buttonAffFormAddAuthor = (<Popup onBlanketClick={(e) => {}} height="180px">
+									<PopupTitle>
+										<h2>Validation retour livre prêté</h2>
+									</PopupTitle>
+									<PopupBody style={{display: "block"}}>
+											<p style={{padding:"0px 5px 10px 5px", fontSize:"1.2em"}}><strong>Etes-vous sûr que le livre vous a bien été rendu ? <br/>
+											Attention car ceci est une action définitive !!!</strong>
+											</p>
+											<Button secondary icon={EIcon.DONE} onClick={this.handleReturnBook}><strong>Livre rendu</strong></Button>
+											<Button secondary icon={EIcon.BLOCK} onClick={this.handleCancelReturnBook} ><strong>Annuler</strong></Button>
+									</PopupBody>
+								</Popup>);
+				}
+			}
+		}
+
 		return (
 			<Row fullHeight>
 				<Box style={{width:"100%"}}>
 				<div style={{padding: '0 20px 0 20px', fontWeight:'bold', alignItems:'center'}}>
 						<div>
 							{bandeau_recap}
+							<div style={{marginRight:'0px', textAlign:'right', float:'right'}}>
+							{buttonAffFormAddAuthor}
+							</div>
 						</div>
 						<div>
 							<ButtonBar>
@@ -480,7 +557,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			</Row>
 		);
 	}
-
+	/*
 	renderDateBold(date:string, dateJourCompare:string): React.ReactNode {
 		if(date){
 			if(dateJourCompare == date.split(" ")[0]){
@@ -498,7 +575,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		}
 		return (<div>{date}</div>);
 	}
-
+	*/
 	renderBandeauRecap (nb_MSN_Calcules: number, nb_MSN_OK:number, nb_MSN_KO:number, nb_MSN_Retard:number): React.ReactNode {
 		let msnAvenir:number = nb_MSN_Calcules - nb_MSN_OK - nb_MSN_KO - nb_MSN_Retard;
 
