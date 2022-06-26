@@ -120,4 +120,4 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 				}
 			}
 
-export const ParamLocation = Store.withStore(ParamComp);
+export const ParamBlurayLocation = Store.withStore(ParamComp);

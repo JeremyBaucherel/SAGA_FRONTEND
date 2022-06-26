@@ -36,8 +36,8 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 	handleAddCell(addRow:any){
 		/* Lance enregistrement dans la database */
 		this.setState({requestStatusAdd: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'param', 'type', 'add']);
-		Common.postAsJson(url_, {authorization:"BOOK_TYPE:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
+        let url_ = new Common.Url(['api', 'bibliotheque', 'param', 'owner', 'add']);
+		Common.postAsJson(url_, {authorization:"BOOK_OWNER:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
 
 		this.setState({addRow:this.state.addRow + 1})
 	}
@@ -60,10 +60,10 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('name_type', 'Catégorie', 500, "text", "text", true, false, true, true, true),
+			new SpreadsheetColumn('name_owner', 'Nom du propriétaire', 500, "text", "text", true, false, true, true, true),
 		];
 
-		let title="Bibliothèque - Paramétrage des Types de livres";
+		let title="Bibliothèque - Paramétrage des propriétaires";
 
 		let pageBody: React.ReactNode = '';
 
@@ -73,17 +73,17 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 			pageBody = (<UnexpectedErrorAlert error={this.state.resultAdd}/>);
 		} else if (this.props.user && this.props.user.hasAuthorization("BOOK:DISPLAY")) {
 			let add:boolean = false;
-			if(this.props.user.hasAuthorization("BOOK_TYPE:ADD")){
+			if(this.props.user.hasAuthorization("BOOK_OWNER:ADD")){
 				add = true;
 			}
 			pageBody = (
 					<ParamProcess 
-						url={['api', 'param', 'type']} 
-						urlEdit={['api', 'param', 'type', 'edit']} 
-						urlDel={['api', 'param', 'type', 'del']} 
+						url={['api', 'bibliotheque', 'param', 'owner']} 
+						urlEdit={['api', 'bibliotheque', 'param', 'owner', 'edit']} 
+						urlDel={['api', 'bibliotheque', 'param', 'owner', 'del']} 
 						authorization={"BOOK:DISPLAY"}
-						authorizationEdit={"BOOK_TYPE:EDIT"}
-						authorizationDel={"BOOK_TYPE:DEL"}
+						authorizationEdit={"BOOK_OWNER:EDIT"}
+						authorizationDel={"BOOK_OWNER:DEL"}
 						process={"Bibliothèque"}
 						pageTitle={title} 
 						col={col}
@@ -102,7 +102,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 								<h1>{title}</h1>
 							</ToolbarTitle>
 							<ToolbarButtons></ToolbarButtons>
-							<ProcessTabsBook activeTab={BookTabs.TYPE} />
+							<ProcessTabsBook activeTab={BookTabs.OWNER} />
 						</Toolbar>
 						
 						<PageBody fullWidth>
@@ -120,4 +120,4 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 				}
 			}
 
-export const ParamType = Store.withStore(ParamComp);
+export const ParamBlurayOwner = Store.withStore(ParamComp);

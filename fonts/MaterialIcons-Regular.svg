@@ -1218,7 +1218,7 @@ d="M256 341c-35 0 -64 29 -64 64s29 64 64 64s64 -29 64 -64s-29 -64 -64 -64zM256 2
     <glyph glyph-name="local_mall" unicode="local_mall" 
 d="M256 235c59 0 107 47 107 106h-43c0 -35 -29 -64 -64 -64s-64 29 -64 64h-43c0 -59 48 -106 107 -106zM256 448c-35 0 -64 -29 -64 -64h128c0 35 -29 64 -64 64zM405 384c23 0 43 -20 43 -43v-256c0 -23 -20 -42 -43 -42h-298c-23 0 -43 19 -43 42v256c0 23 20 43 43 43
 h42c0 59 48 107 107 107s107 -48 107 -107h42z" />
-    <glyph glyph-name="local_movies" unicode="local_movies" 
+    <glyph glyph-name="local_filmotheques" unicode="local_filmotheques" 
 d="M384 320v43h-43v-43h43zM384 235v42h-43v-42h43zM384 149v43h-43v-43h43zM171 320v43h-43v-43h43zM171 235v42h-43v-42h43zM171 149v43h-43v-43h43zM384 448h43v-384h-43v43h-43v-43h-170v43h-43v-43h-43v384h43v-43h43v43h170v-43h43v43z" />
     <glyph glyph-name="local_offer" unicode="local_offer" 
 d="M117 363c18 0 32 14 32 32s-14 32 -32 32s-32 -14 -32 -32s14 -32 32 -32zM457 265c8 -8 12 -18 12 -30s-4 -22 -12 -30l-150 -150c-8 -8 -18 -12 -30 -12s-22 4 -30 12l-192 192c-8 8 -12 18 -12 30v150c0 23 19 42 42 42h150c12 0 22 -4 30 -12z" />
@@ -1353,11 +1353,11 @@ l-59 -59h-35c-10 -49 -52 -85 -104 -85c-60 0 -107 46 -107 106s47 107 107 107h247l
 d="M235 489v-169h-150c0 87 66 159 150 169zM85 192v85h342v-85c0 -94 -77 -171 -171 -171s-171 77 -171 171zM277 489c84 -10 150 -82 150 -169h-150v169z" />
     <glyph glyph-name="move_to_inbox" unicode="move_to_inbox" 
 d="M341 299l-85 -86l-85 86h42v64h86v-64h42zM405 192v213h-299v-213h86c0 -35 29 -64 64 -64s64 29 64 64h85zM405 448c23 0 43 -20 43 -43v-298c0 -23 -20 -43 -43 -43h-299c-24 0 -42 20 -42 43v298c0 23 18 43 42 43h299z" />
-    <glyph glyph-name="movie" unicode="movie" 
+    <glyph glyph-name="filmotheque" unicode="filmotheque" 
 d="M384 427h85v-299c0 -23 -19 -43 -42 -43h-342c-23 0 -42 20 -42 43v256c0 23 19 43 42 43h22l42 -86h64l-42 86h42l43 -86h64l-43 86h43l43 -86h64z" />
-    <glyph glyph-name="movie_creation" unicode="movie_creation" 
+    <glyph glyph-name="filmotheque_creation" unicode="filmotheque_creation" 
 d="M384 427h85v-299c0 -23 -19 -43 -42 -43h-342c-23 0 -42 20 -42 43v256c0 23 19 43 42 43h22l42 -86h64l-42 86h42l43 -86h64l-43 86h43l43 -86h64z" />
-    <glyph glyph-name="movie_filter" unicode="movie_filter" 
+    <glyph glyph-name="filmotheque_filter" unicode="filmotheque_filter" 
 d="M361 257l44 20l-44 20l-20 44l-20 -44l-44 -20l44 -20l20 -44zM240 187l59 26l-59 27l-27 59l-26 -59l-59 -27l59 -26l26 -59zM384 427h85v-299c0 -23 -19 -43 -42 -43h-342c-23 0 -42 20 -42 43v256c0 23 19 43 42 43h22l42 -64h64l-42 64h42l43 -64h64l-43 64h43
 l43 -64h64z" />
     <glyph glyph-name="multiline_chart" unicode="multiline_chart" 

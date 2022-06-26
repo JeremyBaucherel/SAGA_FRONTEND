@@ -22,31 +22,31 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         let dateJour = new Date();
 
         let isBook = Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY');
-        let isMovie = Common.hasAuthorization(this.props.user, 'MOVIE:DISPLAY');
-        let isComsE = Common.hasAuthorization(this.props.user, 'COMS-E:DISPLAY');
-        let isComsM = Common.hasAuthorization(this.props.user, 'COMS-M:DISPLAY');
+        let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY');
+        let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY');
+        let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY');
 
-        let isOnlyBook = (isBook && !isMovie && !isComsE && !isComsM);
-        let isOnlyMovie = (isMovie && !isBook && !isComsE && !isComsM);
-        let isOnlyComsE = (isComsE && !isBook && !isMovie && !isComsM);
-        let isOnlyComsM = (isComsM && !isBook && !isMovie && !isComsE);
+        let isOnlyBook = (isBook && !isfilmotheque && !isBluray && !isComptabilite);
+        let isOnlyfilmotheque = (isfilmotheque && !isBook && !isBluray && !isComptabilite);
+        let isOnlyBluray = (isBluray && !isBook && !isfilmotheque && !isComptabilite);
+        let isOnlyComptabilite = (isComptabilite && !isBook && !isfilmotheque && !isBluray);
 
         let affBook;
         if(isBook){affBook = (this.renderBook())};
-        let affMovie;
-        if(isMovie){affMovie = (this.renderMovie())};
-        let affComsE;
-        if(isComsE){affComsE = (this.renderComsE())};
-        let affComsM;
-        if(isComsM){affComsM = (this.renderComsM())};
+        let afffilmotheque;
+        if(isfilmotheque){afffilmotheque = (this.renderfilmotheque())};
+        let affBluray;
+        if(isBluray){affBluray = (this.renderBluray())};
+        let affComptabilite;
+        if(isComptabilite){affComptabilite = (this.renderComptabilite())};
 
         if (isOnlyBook) {
             return (<ReactRouterDOM.Redirect to="/book/dashboard" />);
-        } else if (isOnlyMovie) {
-            return (<ReactRouterDOM.Redirect to="/movie/dashboard" />);
-        } else if (isOnlyComsE) {
+        } else if (isOnlyfilmotheque) {
+            return (<ReactRouterDOM.Redirect to="/filmotheque/dashboard" />);
+        } else if (isOnlyBluray) {
             return (<ReactRouterDOM.Redirect to="/coms/dashboard" />);
-        } else if (isOnlyComsM) {
+        } else if (isOnlyComptabilite) {
             return (<ReactRouterDOM.Redirect to="/coms/dashboard" />);
         } else {
             return (
@@ -61,9 +61,9 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
                                 <BoxBody style={{display:'flex', alignItems:'center'}}>
                                     <Col style={{display:'flex', flexDirection:'column'}}>                           
                                         {affBook}
-                                        {affMovie}
-                                        {affComsE}
-                                        {affComsM}
+                                        {afffilmotheque}
+                                        {affBluray}
+                                        {affComptabilite}
                                     </Col>        
                                 </BoxBody>
                                 <BoxFooter>
@@ -96,15 +96,15 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         return null;
     }
 
-    renderMovie(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'MOVIE:DISPLAY')) {
+    renderfilmotheque(): React.ReactNode {
+        if (Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
                         <HFlex>
-                            <Button icon={EIcon.LOCAL_MOVIES} secondary to="/movie/dashboard" />
+                            <Button icon={EIcon.MOVIE} secondary to="/filmotheque/dashboard" />
                             <VFlex>
-                                <ReactRouterDOM.Link to="/movie/dashboard"><strong>Filmothèque personelle virtuelle</strong></ReactRouterDOM.Link>
+                                <ReactRouterDOM.Link to="/filmotheque/dashboard"><strong>Filmothèque personelle virtuelle</strong></ReactRouterDOM.Link>
                                 <p>Liste des Films disponible dans le NAS</p>
                             </VFlex>
                         </HFlex>
@@ -115,15 +115,15 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         return null;
     }
 
-    renderComsE(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'COMS-E:DISPLAY')) {
+    renderBluray(): React.ReactNode {
+        if (Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
                         <HFlex>
-                            <Button icon={EIcon.MOVIE} secondary to="/coms/dashboard" />
+                            <Button icon={EIcon.MOVIE_FILTER} secondary to="/bluray/dashboard" />
                             <VFlex>
-                                <ReactRouterDOM.Link to="/coms/dashboard"><strong>Process COMS Elec</strong></ReactRouterDOM.Link>
+                                <ReactRouterDOM.Link to="/bluray/dashboard"><strong>Process COMS Elec</strong></ReactRouterDOM.Link>
                                 <p>Dashboard du process COMS Elec</p>
                             </VFlex>
                         </HFlex>
@@ -134,16 +134,16 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         return null;
     }
 
-    renderComsM(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'COMS-M:DISPLAY')) {
+    renderComptabilite(): React.ReactNode {
+        if (Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody padding={Padding.Large}>
                         <HFlex>
-                            <Button icon={EIcon.BUILD} secondary to="/coms/dashboard" />
+                            <Button icon={EIcon.ACCOUNT_BALANCE} secondary to="/comptabilite/dashboard" />
                             <VFlex>
-                                <ReactRouterDOM.Link to="/coms/dashboard"><strong>Process COMS Méca</strong></ReactRouterDOM.Link>
-                                <p>Dashboard du process COMS Méca</p>
+                                <ReactRouterDOM.Link to="/comptabilite/dashboard"><strong>Gestion des comptes</strong></ReactRouterDOM.Link>
+                                <p>...</p>
                             </VFlex>
                         </HFlex>
                     </BoxBody> 

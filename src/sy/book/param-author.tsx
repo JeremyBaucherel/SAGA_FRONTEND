@@ -36,7 +36,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 	handleAddCell(addRow:any){
 		/* Lance enregistrement dans la database */
 		this.setState({requestStatusAdd: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'param', 'auteur', 'add']);
+        let url_ = new Common.Url(['api', 'bibliotheque', 'param', 'auteur', 'add']);
 		Common.postAsJson(url_, {authorization:"BOOK_AUTEUR:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
 
 		this.setState({addRow:this.state.addRow + 1})
@@ -78,9 +78,9 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 			}
 			pageBody = (
 					<ParamProcess 
-						url={['api', 'param', 'auteur']} 
-						urlEdit={['api', 'param', 'auteur', 'edit']} 
-						urlDel={['api', 'param', 'auteur', 'del']} 
+						url={['api', 'bibliotheque', 'param', 'auteur']} 
+						urlEdit={['api', 'bibliotheque', 'param', 'auteur', 'edit']} 
+						urlDel={['api', 'bibliotheque', 'param', 'auteur', 'del']} 
 						authorization={"BOOK:DISPLAY"}
 						authorizationEdit={"BOOK_AUTEUR:EDIT"}
 						authorizationDel={"BOOK_AUTEUR:DEL"}

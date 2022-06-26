@@ -30,8 +30,7 @@ fs.readdir(STATIC_FILES_DIRPATH, function (err, files) {
 
 
 function routeHome (req, res) {
-  res.write(`
-      <!DOCTYPE html>
+  res.write(`<!DOCTYPE html>
       <html>
           <head>
               <meta http-equiv="Content-Type" content="text/html;charset=utf-8">  
@@ -47,8 +46,7 @@ function routeHome (req, res) {
               </script>
               <script src=\"/static/VAR_VERSION/app.js\"></script>
           </body>
-      </html>
-    `.replace(/VAR_VERSION/g, VERSION));
+      </html>`.replace(/VAR_VERSION/g, VERSION));
 }
 
 function routeStatic (req, res) {

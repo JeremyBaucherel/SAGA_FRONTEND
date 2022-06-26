@@ -36,8 +36,8 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 	handleAddCell(addRow:any){
 		/* Lance enregistrement dans la database */
 		this.setState({requestStatusAdd: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'param', 'location', 'add']);
-		Common.postAsJson(url_, {authorization:"BOOK_LOCATION:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
+        let url_ = new Common.Url(['api', 'bibliotheque', 'param', 'categorie', 'add']);
+		Common.postAsJson(url_, {authorization:"BOOK_CATEGORIE:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
 
 		this.setState({addRow:this.state.addRow + 1})
 	}
@@ -60,10 +60,10 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('name_location', 'Emplacement', 500, "text", "text", true, false, true, true, true),
+			new SpreadsheetColumn('name_categorie', 'Catégorie', 500, "text", "text", true, false, true, true, true),
 		];
 
-		let title="Bibliothèque - Paramétrage des emplacements";
+		let title="Bibliothèque - Paramétrage des Catégories de livres";
 
 		let pageBody: React.ReactNode = '';
 
@@ -73,17 +73,17 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 			pageBody = (<UnexpectedErrorAlert error={this.state.resultAdd}/>);
 		} else if (this.props.user && this.props.user.hasAuthorization("BOOK:DISPLAY")) {
 			let add:boolean = false;
-			if(this.props.user.hasAuthorization("BOOK_LOCATION:ADD")){
+			if(this.props.user.hasAuthorization("BOOK_CATEGORIE:ADD")){
 				add = true;
 			}
 			pageBody = (
 					<ParamProcess 
-						url={['api', 'bibliotheque', 'param', 'location']} 
-						urlEdit={['api', 'bibliotheque', 'param', 'location', 'edit']} 
-						urlDel={['api', 'bibliotheque', 'param', 'location', 'del']} 
+						url={['api', 'bibliotheque', 'param', 'categorie']} 
+						urlEdit={['api', 'bibliotheque', 'param', 'categorie', 'edit']} 
+						urlDel={['api', 'bibliotheque', 'param', 'categorie', 'del']} 
 						authorization={"BOOK:DISPLAY"}
-						authorizationEdit={"BOOK_LOCATION:EDIT"}
-						authorizationDel={"BOOK_LOCATION:DEL"}
+						authorizationEdit={"BOOK_CATEGORIE:EDIT"}
+						authorizationDel={"BOOK_CATEGORIE:DEL"}
 						process={"Bibliothèque"}
 						pageTitle={title} 
 						col={col}
@@ -102,7 +102,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 								<h1>{title}</h1>
 							</ToolbarTitle>
 							<ToolbarButtons></ToolbarButtons>
-							<ProcessTabsBook activeTab={BookTabs.LOCATION} />
+							<ProcessTabsBook activeTab={BookTabs.CATEGORIE} />
 						</Toolbar>
 						
 						<PageBody fullWidth>
@@ -120,4 +120,4 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 				}
 			}
 
-export const ParamLocation = Store.withStore(ParamComp);
+export const ParamCategorie = Store.withStore(ParamComp);

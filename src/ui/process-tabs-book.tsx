@@ -19,7 +19,7 @@ export enum BookTabs {
 	BOOKPUBLISHING = "bookpublishing",
 	AUTEUR = "auteur",
 	SAGA = "SAGA",
-	TYPE = "type",
+	CATEGORIE = "categorie",
 	OWNER = 'owner',
 	LOCATION = 'location',
 }
@@ -27,9 +27,9 @@ export enum BookTabs {
 export enum BookTabsTitle {
 	DASHBOARD = "Dashboard",
 	BOOKPUBLISHING = "Maison d'édition",
-	AUTEUR = "auteur",
+	AUTEUR = "Auteur",
 	SAGA = "SAGA",
-	TYPE = "Catégorie",
+	CATEGORIE = "Catégorie",
 	OWNER = "Propriétaire",
 	LOCATION = "Emplacement",
 }
@@ -43,7 +43,7 @@ export class ProcessTabsBookComp extends React.PureComponent<BookTabsProps, {}> 
 				{this.renderTab(BookTabs.BOOKPUBLISHING, BookTabsTitle.BOOKPUBLISHING, './'+BookTabs.BOOKPUBLISHING, 'BOOK:DISPLAY')}		
 				{this.renderTab(BookTabs.AUTEUR, BookTabsTitle.AUTEUR, './'+BookTabs.AUTEUR, 'BOOK:DISPLAY')}
 				{this.renderTab(BookTabs.SAGA, BookTabsTitle.SAGA, './'+BookTabs.SAGA, 'BOOK:DISPLAY')}
-				{this.renderTab(BookTabs.TYPE, BookTabsTitle.TYPE, './'+BookTabs.TYPE, 'BOOK:DISPLAY')}
+				{this.renderTab(BookTabs.CATEGORIE, BookTabsTitle.CATEGORIE, './'+BookTabs.CATEGORIE, 'BOOK:DISPLAY')}
 				{this.renderTab(BookTabs.OWNER, BookTabsTitle.OWNER, './'+BookTabs.OWNER, 'BOOK:DISPLAY')}
 				{this.renderTab(BookTabs.LOCATION, BookTabsTitle.LOCATION, './'+BookTabs.LOCATION, 'BOOK:DISPLAY')}
 			</ToolbarTabs>
