@@ -62,26 +62,26 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 
 	renderProcessButton(): React.ReactNode {
 		let isBook = Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY');
-        let isMovie = Common.hasAuthorization(this.props.user, 'MOVIE:DISPLAY');
-        let isComsE = Common.hasAuthorization(this.props.user, 'COMS-E:DISPLAY');
-        let isComsM = Common.hasAuthorization(this.props.user, 'COMS-M:DISPLAY');
+        let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY');
+        let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY');
+        let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY');
 
 		let buttonBook = null;
-		let buttonMovie = null;
-		let buttonComsE = null;
-		let buttonComsM = null;
+		let buttonfilmotheque = null;
+		let buttonBluray = null;
+		let buttonComptabilite = null;
 		if(isBook){buttonBook = (<Tooltip text="Bibliothèque personelle"><Button icon={EIcon.MENU_BOOK} secondary to="/book/dashboard" /></Tooltip>);}
-		if(isMovie){buttonMovie = (<Tooltip text="Filmothèque personelle"><Button icon={EIcon.LOCAL_MOVIES} secondary to="/movie/dashboard" /></Tooltip>);}
-		if(isComsE){buttonComsE = (<Tooltip text="Process Coms Elec"><Button icon={EIcon.MOVIE} secondary to="/coms/dashboard" /></Tooltip>);}
-		if(isComsM){buttonComsM = (<Tooltip text="Process Coms Méca"><Button icon={EIcon.BUILD} secondary to="/coms/dashboard" /></Tooltip>);}
+		if(isfilmotheque){buttonfilmotheque = (<Tooltip text="Filmothèque personelle"><Button icon={EIcon.MOVIE} secondary to="/filmotheque/dashboard" /></Tooltip>);}
+		if(isBluray){buttonBluray = (<Tooltip text="Gestion des Blu-ray"><Button icon={EIcon.MOVIE_FILTER} secondary to="/bluray/dashboard" /></Tooltip>);}
+		if(isComptabilite){buttonComptabilite = (<Tooltip text="Gestion des comptes"><Button icon={EIcon.ACCOUNT_BALANCE} secondary to="/comptabilite/dashboard" /></Tooltip>);}
 
 		return(
 			<div style={{right:"300px", position: "fixed", width: '100px', textAlign: "right"}}>
 				<ButtonBar>
 					{buttonBook}
-					{buttonMovie}
-					{buttonComsE}
-					{buttonComsM}
+					{buttonfilmotheque}
+					{buttonBluray}
+					{buttonComptabilite}
 				</ButtonBar>
 			</div>
 		);

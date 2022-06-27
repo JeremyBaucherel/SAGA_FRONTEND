@@ -23,20 +23,27 @@ import {
 } from './user';
 import {HomePage} from './home-page';
 
-import {DashboardMetal} from './movie/dashboard-metal';
-import {ParamPfeMetal} from './movie/param-pfe-metal';
-import {ParamGtiMetal} from './movie/param-gti-metal';
-import {TemplateFullConfMetal} from './movie/templatefullconf-metal';
-import {ParamOthersMetal} from './movie/param-others-metal';
-import {RoutingGTIMetal} from './movie/routingGTI-metal';
+import {DashboardMetal} from './filmotheque/dashboard-metal';
+import {ParamPfeMetal} from './filmotheque/param-pfe-metal';
+import {ParamGtiMetal} from './filmotheque/param-gti-metal';
+import {TemplateFullConfMetal} from './filmotheque/templatefullconf-metal';
+import {ParamOthersMetal} from './filmotheque/param-others-metal';
+import {RoutingGTIMetal} from './filmotheque/routingGTI-metal';
 
 import {DashboardBook} from './book/dashboard-book';
 import {ParamLocation} from './book/param-location';
 import {ParamOwner} from './book/param-owner';
 import {ParamSaga} from './book/param-saga';
 import {ParamAuthor} from './book/param-author'
-import {ParamType} from './book/param-type';
+import {ParamCategorie} from './book/param-categorie';
 import {ParamBookPublishing} from './book/param-bookpublishing';
+
+import {DashboardBluray} from './bluray/dashboard-bluray';
+import {ParamBlurayLocation} from './bluray/param-location';
+import {ParamBlurayOwner} from './bluray/param-owner';
+import {ParamBluraySaga} from './bluray/param-saga';
+import {ParamBlurayCoffret} from './bluray/param-coffret'
+import {ParamBlurayCategorie} from './bluray/param-categorie';
 
 import {ParamOthersGlobal} from './menu/parameters';
 import {Information} from './menu/information';
@@ -268,8 +275,15 @@ class SAGARouterComp extends React.Component<ISAGARouterProps, ISAGARouterState>
 					<Route exact path="/book/owner" component={ParamOwner} />
 					<Route exact path="/book/SAGA" component={ParamSaga} />
 					<Route exact path="/book/auteur" component={ParamAuthor} />
-					<Route exact path="/book/type" component={ParamType} />
+					<Route exact path="/book/categorie" component={ParamCategorie} />
 					<Route exact path="/book/location" component={ParamLocation} />
+
+					<Route exact path="/bluray/dashboard" component={DashboardBluray} />
+					<Route exact path="/bluray/owner" component={ParamBlurayOwner} />
+					<Route exact path="/bluray/SAGA" component={ParamBluraySaga} />
+					<Route exact path="/bluray/coffret" component={ParamBlurayCoffret} />
+					<Route exact path="/bluray/categorie" component={ParamBlurayCategorie} />
+					<Route exact path="/bluray/location" component={ParamBlurayLocation} />
 
 					<Route exact path="/metal/dashboard" component={DashboardMetal} />
 					<Route exact path="/metal/parampfe" component={ParamPfeMetal} />

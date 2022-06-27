@@ -6,7 +6,7 @@ import * as Common from '../api/common';
 import {NotAuthorizedAlert} from '../not-authorized-page';
 import {UnexpectedErrorAlert} from '../error-page';
 import * as Store from '../store';
-import {ProcessTabsBook, BookTabs} from '../../ui/process-tabs-Book';
+import {ProcessTabsBluray, BlurayTabs} from '../../ui/process-tabs-bluray';
 import * as DateUtils from '../../date-utils';
 
 interface DashboardProps {
@@ -19,9 +19,8 @@ interface IDashboardState {
 	resultAdd: any;
 	resultDel: any;
 
-	resultMenuCategorie: any;
+	resultMenuType: any;
 	resultMenuSaga: any;
-	resultMenuPublishing: any;
 	resultMenuOwner: any;
 	resultMenuLocation: any;
 
@@ -32,24 +31,23 @@ interface IDashboardState {
 	requestStatusDel: Common.ECallStatus;
 	requestStatusAdd: Common.ECallStatus;
 
-	requestStatusMenuCategorie: Common.ECallStatus;
+	requestStatusMenuType: Common.ECallStatus;
 	requestStatusMenuSaga: Common.ECallStatus;
-	requestStatusMenuPublishing: Common.ECallStatus;
 	requestStatusMenuOwner: Common.ECallStatus;
 	requestStatusMenuLocation: Common.ECallStatus;
 
-	resultReturnBook: any;
-	requestStatusReturnBook: Common.ECallStatus;
+	resultReturnBluray: any;
+	requestStatusReturnBluray: Common.ECallStatus;
 
 	selectedRow: number;
-	popupReturnBookShown: boolean;
+	popupReturnBlurayShown: boolean;
 
 	filtreActifLivrePret: boolean;
 
 	boutonActiveCategorie: number;
 }
 
-export class DashboardBookComp extends React.PureComponent<DashboardProps, IDashboardState> {
+export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDashboardState> {
 
 	constructor (props: DashboardProps) {
 		super(props);
@@ -60,9 +58,9 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			resultAdd: {},
 			resultDel: {},
 
-			resultMenuCategorie: {},
+			resultMenuType: {},
 			resultMenuSaga: {},
-			resultMenuPublishing: {},
+
 			resultMenuOwner: {},
 			resultMenuLocation: {},
 
@@ -73,17 +71,17 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			requestStatusDel: Common.ECallStatus.NOT_STARTED,
 			requestStatusAdd: Common.ECallStatus.NOT_STARTED,
 
-			requestStatusMenuCategorie: Common.ECallStatus.NOT_STARTED,
+			requestStatusMenuType: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuSaga: Common.ECallStatus.NOT_STARTED,
-			requestStatusMenuPublishing: Common.ECallStatus.NOT_STARTED,
+
 			requestStatusMenuOwner: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuLocation: Common.ECallStatus.NOT_STARTED,
 			
-			resultReturnBook: {},
-			requestStatusReturnBook: Common.ECallStatus.NOT_STARTED,
+			resultReturnBluray: {},
+			requestStatusReturnBluray: Common.ECallStatus.NOT_STARTED,
 
 			selectedRow:-1,
-			popupReturnBookShown: false,
+			popupReturnBlurayShown: false,
 			filtreActifLivrePret: false,
 
 			boutonActiveCategorie: -1,
@@ -97,17 +95,16 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		this.handleSaveCell = this.handleSaveCell.bind(this);
 		this.handleDelCell = this.handleDelCell.bind(this);
 
-		this.handleAffPopupReturnBook = this.handleAffPopupReturnBook.bind(this);
-		this.handleCancelReturnBook = this.handleCancelReturnBook.bind(this);
-		this.handleReturnBook = this.handleReturnBook.bind(this);
+		this.handleAffPopupReturnBluray = this.handleAffPopupReturnBluray.bind(this);
+		this.handleCancelReturnBluray = this.handleCancelReturnBluray.bind(this);
+		this.handleReturnBluray = this.handleReturnBluray.bind(this);
 	}
 
 
 	componentDidMount (): void {
 		this.requestData();
-		this.requestMenuCategorie();
+		this.requestMenuType();
 		this.requestMenuSaga();
-		this.requestMenuPublishing();
 		this.requestMenuOwner();
 		this.requestMenuLocation();
 	}
@@ -115,7 +112,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	// Requète bibliothèque
     requestData (): void {
 		this.setState({requestStatus: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard']);
+        let url_ = new Common.Url(['api', 'bluray', 'dashboard']);
         Common.getJson(url_, this.receiveData.bind(this), this.receiveDataError.bind(this));
 	}
 
@@ -135,34 +132,34 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		});
 	}
 
-	// Menu categorie
-	requestMenuCategorie (): void {
-		this.setState({requestStatusMenuCategorie: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'categorie']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuCategorie.bind(this), this.receiveMenuCategorieError.bind(this));
+	// Menu Type
+	requestMenuType (): void {
+		this.setState({requestStatusMenuType: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'bluray', 'liste', 'type']);
+		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuType.bind(this), this.receiveMenuTypeError.bind(this));
 	}
 
-	receiveMenuCategorie (resp: Common.IResponse<any>): void {
+	receiveMenuType (resp: Common.IResponse<any>): void {
 		let myresult = resp.body;
 		this.setState({
-			requestStatusMenuCategorie: Common.ECallStatus.OK,
-			resultMenuCategorie: myresult,
+			requestStatusMenuType: Common.ECallStatus.OK,
+			resultMenuType: myresult,
 		});
 		this.handleDefineFilterDefault();
 	}
 
-	receiveMenuCategorieError (): void {
+	receiveMenuTypeError (): void {
 		this.setState({
-			requestStatusMenuCategorie: Common.ECallStatus.NOK,
-			resultMenuCategorie:[]
+			requestStatusMenuType: Common.ECallStatus.NOK,
+			resultMenuType:[]
 		});
 	}
 
 	// Menu SAGA
 	requestMenuSaga (): void {
 		this.setState({requestStatusMenuSaga: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'saga']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'liste', 'saga']);
+		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
 	}
 
 	receiveMenuSaga (resp: Common.IResponse<any>): void {
@@ -181,34 +178,11 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		});
 	}
 
-	// Menu Publishing
-	requestMenuPublishing (): void {
-		this.setState({requestStatusMenuPublishing: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'publishing']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuPublishing.bind(this), this.receiveMenuPublishingError.bind(this));
-	}
-
-	receiveMenuPublishing (resp: Common.IResponse<any>): void {
-		let myresult = resp.body;
-		this.setState({
-			requestStatusMenuPublishing: Common.ECallStatus.OK,
-			resultMenuPublishing: myresult,
-		});
-		this.handleDefineFilterDefault();
-	}
-
-	receiveMenuPublishingError (): void {
-		this.setState({
-			requestStatusMenuPublishing: Common.ECallStatus.NOK,
-			resultMenuPublishing:[]
-		});
-	}
-
 	// Menu Owner
 	requestMenuOwner (): void {
 		this.setState({requestStatusMenuOwner: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'owner']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'liste', 'owner']);
+		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
 	}
 
 	receiveMenuOwner (resp: Common.IResponse<any>): void {
@@ -230,8 +204,8 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	// Menu Location
 	requestMenuLocation (): void {
 		this.setState({requestStatusMenuLocation: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'location']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'liste', 'location']);
+		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
 	}
 
 	receiveMenuLocation (resp: Common.IResponse<any>): void {
@@ -259,64 +233,64 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		}
 	}
 
-    handleAffPopupReturnBook (): void {
-        this.setState({popupReturnBookShown: true})
+    handleAffPopupReturnBluray (): void {
+        this.setState({popupReturnBlurayShown: true})
     }
 
-    handleCancelReturnBook (): void {
-        this.setState({popupReturnBookShown: false})
+    handleCancelReturnBluray (): void {
+        this.setState({popupReturnBlurayShown: false})
         // On désélectionne la ligne
         this.setState({selectedRow: -1})
     }
 
-	handleReturnBook():void {
-		this.setState({requestStatusReturnBook: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard', 'valretour']);
-		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BOOK:EDIT"}, this.receiveReturnBook.bind(this), this.receiveReturnBookError.bind(this));
-		this.handleCancelReturnBook();
+	handleReturnBluray():void {
+		this.setState({requestStatusReturnBluray: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'bluray', 'dashboard', 'valretour']);
+		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BLURAY:EDIT"}, this.receiveReturnBluray.bind(this), this.receiveReturnBlurayError.bind(this));
+		this.handleCancelReturnBluray();
 		this.requestData();
 	}
 
-	receiveReturnBook (resp: Common.IResponse<any>): void {
+	receiveReturnBluray (resp: Common.IResponse<any>): void {
 		let myresult = resp.body;
 		this.setState({
-			requestStatusReturnBook: Common.ECallStatus.OK,
-			resultReturnBook: myresult,	
+			requestStatusReturnBluray: Common.ECallStatus.OK,
+			resultReturnBluray: myresult,	
 		});	
 	}
 
-	receiveReturnBookError (): void {
+	receiveReturnBlurayError (): void {
 		this.setState({
-			requestStatusReturnBook: Common.ECallStatus.NOK,
-			resultReturnBook:[]
+			requestStatusReturnBluray: Common.ECallStatus.NOK,
+			resultReturnBluray:[]
 		});
 	}
 
 	render (): React.ReactNode {
 		let pageBody: React.ReactNode = '';
 
-		if (this.state.requestStatus == Common.ECallStatus.RUNNING || this.state.requestStatusMenuCategorie == Common.ECallStatus.RUNNING || 
-			this.state.requestStatusMenuSaga == Common.ECallStatus.RUNNING || this.state.requestStatusMenuPublishing == Common.ECallStatus.RUNNING ||
+		if (this.state.requestStatus == Common.ECallStatus.RUNNING || this.state.requestStatusMenuType == Common.ECallStatus.RUNNING || 
+			this.state.requestStatusMenuSaga == Common.ECallStatus.RUNNING || 
 			this.state.requestStatusMenuOwner == Common.ECallStatus.RUNNING || this.state.requestStatusMenuLocation == Common.ECallStatus.RUNNING) {
 			pageBody = this.renderRefreshing();
-		} else if (this.state.requestStatus == Common.ECallStatus.NOK || this.state.requestStatusMenuCategorie == Common.ECallStatus.NOK || 
-			this.state.requestStatusMenuSaga == Common.ECallStatus.NOK || this.state.requestStatusMenuPublishing == Common.ECallStatus.NOK ||
+		} else if (this.state.requestStatus == Common.ECallStatus.NOK || this.state.requestStatusMenuType == Common.ECallStatus.NOK || 
+			this.state.requestStatusMenuSaga == Common.ECallStatus.NOK || 
 			this.state.requestStatusMenuOwner == Common.ECallStatus.NOK || this.state.requestStatusMenuLocation == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert />);
-		} else if (this.props.user && this.props.user.hasAuthorization('BOOK:DISPLAY')) {
+		} else if (this.props.user && this.props.user.hasAuthorization('BLURAY:DISPLAY')) {
 			pageBody = this.renderDashboard();
 		} else {
 			pageBody = (<NotAuthorizedAlert />);
 		}
 
 		return (
-			<Page title="Dashboard Bibliothèque">
+			<Page title="Dashboard Blu-ray">
 				<Toolbar>
 					<ToolbarTitle>
-						<h1>Bibliothèque - Dashboard</h1>
+						<h1>Blu-ray - Dashboard</h1>
                     </ToolbarTitle>
 					<ToolbarButtons></ToolbarButtons>
-					<ProcessTabsBook activeTab={BookTabs.DASHBOARD} />
+					<ProcessTabsBluray activeTab={BlurayTabs.DASHBOARD} />
 				</Toolbar>
 				<PageBody fullWidth>{pageBody}</PageBody>
 			</Page>
@@ -345,8 +319,8 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		console.log(saveRows)
 		/* Lance enregistrement dans la database */
 		this.setState({requestStatusSave: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard', 'edit']);
-		Common.postAsJson(url_, {process: "Bibliothèque", authorization:"BOOK_DASHBOARD:EDIT", saveRows:saveRows}, this.receiveDataSave.bind(this), this.receiveDataSaveError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'dashboard', 'edit']);
+		Common.postAsJson(url_, {process: "Bluray", authorization:"BLURAY_DASHBOARD:EDIT", saveRows:saveRows}, this.receiveDataSave.bind(this), this.receiveDataSaveError.bind(this));
 
 		this.requestData();
 	}
@@ -369,8 +343,8 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	handleDelCell(delRow:any){
 		/* Lance suppression dans la database */
 		this.setState({requestStatusDel: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard', 'del']);
-		Common.postAsJson(url_, {process: "Bibliothèque", authorization:"BOOK_DASHBOARD:DEL", delRow:delRow}, this.receiveDataDel.bind(this), this.receiveDataDelError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'dashboard', 'del']);
+		Common.postAsJson(url_, {process: "Bluray", authorization:"BLURAY_DASHBOARD:DEL", delRow:delRow}, this.receiveDataDel.bind(this), this.receiveDataDelError.bind(this));
 
 		this.requestData();
 	}
@@ -393,8 +367,8 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	handleAddCell(addRow:any){
 		/* Lance l'ajout dans la database */
 		this.setState({requestStatusAdd: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard', 'add']);
-		Common.postAsJson(url_, {process: "Bibliothèque", authorization:"BOOK_DASHBOARD:DEL", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataAddError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'dashboard', 'add']);
+		Common.postAsJson(url_, {process: "Bluray", authorization:"BLURAY_DASHBOARD:DEL", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataAddError.bind(this));
 
 		this.requestData();
 	}
@@ -450,14 +424,12 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 
 		let col = [
 			new SpreadsheetColumn('id', "id", 50, "text", "text", true, true, true, false, false),
-			new SpreadsheetColumn('name_categorie', "Catégorie", 50, "menu", "liste", true, true, true, true, true, this.state.resultMenuCategorie),
+			new SpreadsheetColumn('name_categorie', "Catégorie", 50, "menu", "liste", true, true, true, true, true, this.state.resultMenuType),
 			new SpreadsheetColumn('name_saga', "Saga", 120, "text", "liste", true, true, false, true, false, this.state.resultMenuSaga),
 			new SpreadsheetColumn('number', "Numéro", 85, "text", "text", true, true, false, true, false),
-			new SpreadsheetColumn('name', "Nom", 120, "text", "text", true, true, false, true, true),
-			new SpreadsheetColumn("name_book_publishing", "Maison d'édition", 150, "text", "liste", true, true, false, true, false, this.state.resultMenuPublishing),
+			new SpreadsheetColumn('title', "Titre", 120, "text", "text", true, true, false, true, true),
 			new SpreadsheetColumn('name_owner', "Propriétaire", 150, "menu", "liste", true, true, true, true, true, this.state.resultMenuOwner),
 			new SpreadsheetColumn('name_location', "Localisation", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuLocation),
-			new SpreadsheetColumn('authors', "Auteur", 150, "text", "text", true, true, true, false, false),
 			new SpreadsheetColumn('borrower', "Prêté", 150, "text", "text", true, true, true, true, false),
 			new SpreadsheetColumn('borrowing_date', "Date de prêt", 100, "date", "date", true, true, true, true, false),
 		];
@@ -506,27 +478,27 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		let edit:boolean = false;
 		let del:boolean = false;
 		let add:boolean = false;
-		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:EDIT")){
+		if(this.props.user && this.props.user.hasAuthorization("BLURAY_DASHBOARD:EDIT")){
 			edit = true;
 		}
-		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:DEL")){	
+		if(this.props.user && this.props.user.hasAuthorization("BLURAY_DASHBOARD:DEL")){	
 			del = true;
 		}
-		if(this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:ADD")){	
+		if(this.props.user && this.props.user.hasAuthorization("BLURAY_DASHBOARD:ADD")){	
 			add = true;
 		}
 
 		let buttonAffFormAddAuthor: React.ReactNode = (null);
 
 		// Si diff de -1 alors on a sélectionné une ligne du tableau
-		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BOOK:EDIT')){
+		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BLURAY:EDIT')){
 
 			if(tabBorrower.indexOf(this.state.selectedRow) != -1){
 
-				if(!this.state.popupReturnBookShown){
+				if(!this.state.popupReturnBlurayShown){
 				
 					buttonAffFormAddAuthor = (
-						<Button icon={EIcon.ASSIGNMENT_RETURN} secondary onClick={this.handleAffPopupReturnBook}>&nbsp;Livre rendu</Button>
+						<Button icon={EIcon.ASSIGNMENT_RETURN} secondary onClick={this.handleAffPopupReturnBluray}>&nbsp;Livre rendu</Button>
 					);
 					
 				}else{
@@ -538,8 +510,8 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 											<p style={{padding:"0px 5px 10px 5px", fontSize:"1.2em"}}><strong>Etes-vous sûr que le livre vous a bien été rendu ? <br/>
 											Attention car ceci est une action définitive !!!</strong>
 											</p>
-											<Button secondary icon={EIcon.DONE} onClick={this.handleReturnBook}><strong>Livre rendu</strong></Button>
-											<Button secondary icon={EIcon.BLOCK} onClick={this.handleCancelReturnBook} ><strong>Annuler</strong></Button>
+											<Button secondary icon={EIcon.DONE} onClick={this.handleReturnBluray}><strong>Livre rendu</strong></Button>
+											<Button secondary icon={EIcon.BLOCK} onClick={this.handleCancelReturnBluray} ><strong>Annuler</strong></Button>
 									</PopupBody>
 								</Popup>);
 				}
@@ -645,4 +617,4 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 
 }
 
-export const DashboardBook = Store.withStore(DashboardBookComp);
+export const DashboardBluray = Store.withStore(DashboardBlurayComp);

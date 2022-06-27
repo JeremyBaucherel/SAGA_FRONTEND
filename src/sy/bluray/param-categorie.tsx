@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Page, PageBody, SpreadsheetColumn} from 'stk';
 import {Toolbar, ToolbarTitle, ToolbarButtons} from '../../ui/toolbar';
 import * as Store from '../store';
-import {ProcessTabsBook, BookTabs} from '../../ui/process-tabs-book';
+import {ProcessTabsBluray, BlurayTabs} from '../../ui/process-tabs-bluray';
 import {ParamProcess} from '../shared/param-process';
 import * as Common from '../api/common';
 import {UnexpectedErrorAlert} from '../error-page';
@@ -36,8 +36,8 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 	handleAddCell(addRow:any){
 		/* Lance enregistrement dans la database */
 		this.setState({requestStatusAdd: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bibliotheque', 'param', 'location', 'add']);
-		Common.postAsJson(url_, {authorization:"BOOK_LOCATION:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'param', 'categorie', 'add']);
+		Common.postAsJson(url_, {authorization:"BLURAY_CATEGORIE:ADD", addRow:addRow}, this.receiveDataAdd.bind(this), this.receiveDataError.bind(this));
 
 		this.setState({addRow:this.state.addRow + 1})
 	}
@@ -60,10 +60,10 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 
 	render (): React.ReactNode {
 		let col = [
-			new SpreadsheetColumn('name_location', 'Emplacement', 500, "text", "text", true, false, true, true, true),
+			new SpreadsheetColumn('name_categorie', 'Catégorie', 500, "text", "text", true, false, true, true, true),
 		];
 
-		let title="Bibliothèque - Paramétrage des emplacements";
+		let title="Blu-ray - Paramétrage des Catégories de Blu-ray";
 
 		let pageBody: React.ReactNode = '';
 
@@ -71,20 +71,20 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 			pageBody = (this.renderRefreshing());
 		} else if (this.state.requestStatusAdd == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert error={this.state.resultAdd}/>);
-		} else if (this.props.user && this.props.user.hasAuthorization("BOOK:DISPLAY")) {
+		} else if (this.props.user && this.props.user.hasAuthorization("BLURAY:DISPLAY")) {
 			let add:boolean = false;
-			if(this.props.user.hasAuthorization("BOOK_LOCATION:ADD")){
+			if(this.props.user.hasAuthorization("BLURAY_CATEGORIE:ADD")){
 				add = true;
 			}
 			pageBody = (
 					<ParamProcess 
-						url={['api', 'bibliotheque', 'param', 'location']} 
-						urlEdit={['api', 'bibliotheque', 'param', 'location', 'edit']} 
-						urlDel={['api', 'bibliotheque', 'param', 'location', 'del']} 
-						authorization={"BOOK:DISPLAY"}
-						authorizationEdit={"BOOK_LOCATION:EDIT"}
-						authorizationDel={"BOOK_LOCATION:DEL"}
-						process={"Bibliothèque"}
+						url={['api', 'bluray', 'param', 'categorie']} 
+						urlEdit={['api', 'bluray', 'param', 'categorie', 'edit']} 
+						urlDel={['api', 'bluray', 'param', 'categorie', 'del']} 
+						authorization={"BLURAY:DISPLAY"}
+						authorizationEdit={"BLURAY_CATEGORIE:EDIT"}
+						authorizationDel={"BLURAY_CATEGORIE:DEL"}
+						process={"Bluray"}
 						pageTitle={title} 
 						col={col}
 						rowIndex={["id"]} 
@@ -102,7 +102,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 								<h1>{title}</h1>
 							</ToolbarTitle>
 							<ToolbarButtons></ToolbarButtons>
-							<ProcessTabsBook activeTab={BookTabs.LOCATION} />
+							<ProcessTabsBluray activeTab={BlurayTabs.CATEGORIE} />
 						</Toolbar>
 						
 						<PageBody fullWidth>
@@ -120,4 +120,4 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 				}
 			}
 
-export const ParamLocation = Store.withStore(ParamComp);
+export const ParamBlurayCategorie = Store.withStore(ParamComp);
