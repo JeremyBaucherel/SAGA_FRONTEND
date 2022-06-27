@@ -59,22 +59,22 @@ p:last-child {
 
 
 a, a:visited {
-	color:#227FDB;
+	color:#00205e;
 	text-decoration:none;	
 }
 
 a:hover {
-	color:#227FDB;
+	color:#00205e;
 	text-decoration:underline;
 }
 
 .subtle a, .subtle a:visited {
-	color:#64B5F6;
+	color:#99a5be;
 	text-decoration:none;	
 }
 
 .subtle a:hover {
-	color:#64B5F6;
+	color:#99a5be;
 	text-decoration:underline;
 }
 
