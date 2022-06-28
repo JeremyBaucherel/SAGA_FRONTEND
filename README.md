@@ -8,7 +8,9 @@
 ## Fetch the source and dependencies
 
 * Fetch the source: `git pull https://github.com/JeremyBaucherel/SAGA_FRONTEND.git`
-* Install Node dependencies: `npm install`
+* Install Node dependencies: `npm install` puis 'npm update' au besoin pour mettre à jour dans le futur sans tout réinstaller
+* npm audit fix --force
+* npm audit fix
 * Build the app bundle: `npm run-script build` (`npm run-script watch` if you're developing)
 * Run the server: `npm start`
 
