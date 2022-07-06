@@ -39,13 +39,13 @@ export class ProcessTabsBookComp extends React.PureComponent<BookTabsProps, {}> 
 	render (): React.ReactNode {
 		return (
 			<ToolbarTabs>
-				{this.renderTab(BookTabs.DASHBOARD, BookTabsTitle.DASHBOARD, './'+BookTabs.DASHBOARD, 'BOOK:DISPLAY')}
-				{this.renderTab(BookTabs.BOOKPUBLISHING, BookTabsTitle.BOOKPUBLISHING, './'+BookTabs.BOOKPUBLISHING, 'BOOK:DISPLAY')}		
-				{this.renderTab(BookTabs.AUTEUR, BookTabsTitle.AUTEUR, './'+BookTabs.AUTEUR, 'BOOK:DISPLAY')}
-				{this.renderTab(BookTabs.SAGA, BookTabsTitle.SAGA, './'+BookTabs.SAGA, 'BOOK:DISPLAY')}
-				{this.renderTab(BookTabs.CATEGORIE, BookTabsTitle.CATEGORIE, './'+BookTabs.CATEGORIE, 'BOOK:DISPLAY')}
-				{this.renderTab(BookTabs.OWNER, BookTabsTitle.OWNER, './'+BookTabs.OWNER, 'BOOK:DISPLAY')}
-				{this.renderTab(BookTabs.LOCATION, BookTabsTitle.LOCATION, './'+BookTabs.LOCATION, 'BOOK:DISPLAY')}
+				{this.renderTab(BookTabs.DASHBOARD, BookTabsTitle.DASHBOARD, './'+BookTabs.DASHBOARD, 'BOOK_DASHBOARD:DISPLAY')}
+				{this.renderTab(BookTabs.BOOKPUBLISHING, BookTabsTitle.BOOKPUBLISHING, './'+BookTabs.BOOKPUBLISHING, 'BOOK_DASHBOARD:DISPLAY')}		
+				{this.renderTab(BookTabs.AUTEUR, BookTabsTitle.AUTEUR, './'+BookTabs.AUTEUR, 'BOOK_DASHBOARD:DISPLAY')}
+				{this.renderTab(BookTabs.SAGA, BookTabsTitle.SAGA, './'+BookTabs.SAGA, 'BOOK_DASHBOARD:DISPLAY')}
+				{this.renderTab(BookTabs.CATEGORIE, BookTabsTitle.CATEGORIE, './'+BookTabs.CATEGORIE, 'BOOK_DASHBOARD:DISPLAY')}
+				{this.renderTab(BookTabs.OWNER, BookTabsTitle.OWNER, './'+BookTabs.OWNER, 'BOOK_DASHBOARD:DISPLAY')}
+				{this.renderTab(BookTabs.LOCATION, BookTabsTitle.LOCATION, './'+BookTabs.LOCATION, 'BOOK_DASHBOARD:DISPLAY')}
 			</ToolbarTabs>
 		);
 	}

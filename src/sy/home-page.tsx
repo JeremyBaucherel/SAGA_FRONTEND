@@ -21,7 +21,7 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
 
         let dateJour = new Date();
 
-        let isBook = Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY');
+        let isBook = Common.hasAuthorization(this.props.user, 'BOOK_DASHBOARD:DISPLAY');
         let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY');
         let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY');
         let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY');

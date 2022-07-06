@@ -24,6 +24,7 @@ interface IDashboardState {
 	resultMenuPublishing: any;
 	resultMenuOwner: any;
 	resultMenuLocation: any;
+	resultMenuAuthor: any;
 
 	filter_default: any;
 
@@ -37,6 +38,7 @@ interface IDashboardState {
 	requestStatusMenuPublishing: Common.ECallStatus;
 	requestStatusMenuOwner: Common.ECallStatus;
 	requestStatusMenuLocation: Common.ECallStatus;
+	requestStatusMenuAuthor: Common.ECallStatus;
 
 	resultReturnBook: any;
 	requestStatusReturnBook: Common.ECallStatus;
@@ -65,6 +67,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			resultMenuPublishing: {},
 			resultMenuOwner: {},
 			resultMenuLocation: {},
+			resultMenuAuthor: {},
 
 			filter_default: {},
 
@@ -78,7 +81,8 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			requestStatusMenuPublishing: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuOwner: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuLocation: Common.ECallStatus.NOT_STARTED,
-			
+			requestStatusMenuAuthor: Common.ECallStatus.NOT_STARTED,
+
 			resultReturnBook: {},
 			requestStatusReturnBook: Common.ECallStatus.NOT_STARTED,
 
@@ -102,7 +106,6 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		this.handleReturnBook = this.handleReturnBook.bind(this);
 	}
 
-
 	componentDidMount (): void {
 		this.requestData();
 		this.requestMenuCategorie();
@@ -110,6 +113,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		this.requestMenuPublishing();
 		this.requestMenuOwner();
 		this.requestMenuLocation();
+		this.requestMenuAuteur();
 	}
 
 	// Requète bibliothèque
@@ -135,11 +139,34 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		});
 	}
 
+	// Menu Auteur
+	requestMenuAuteur (): void {
+		this.setState({requestStatusMenuAuthor: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'author']);
+		Common.postAsJson(url_, {authorization:"BOOK_DASHBOARD:DISPLAY"}, this.receiveMenuAuteur.bind(this), this.receiveMenuAuteurError.bind(this));
+	}
+
+	receiveMenuAuteur (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuAuthor: Common.ECallStatus.OK,
+			resultMenuAuthor: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuAuteurError (): void {
+		this.setState({
+			requestStatusMenuAuthor: Common.ECallStatus.NOK,
+			resultMenuAuthor:[]
+		});
+	}
+
 	// Menu categorie
 	requestMenuCategorie (): void {
 		this.setState({requestStatusMenuCategorie: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'categorie']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuCategorie.bind(this), this.receiveMenuCategorieError.bind(this));
+		Common.postAsJson(url_, {authorization:"BOOK_DASHBOARD:DISPLAY"}, this.receiveMenuCategorie.bind(this), this.receiveMenuCategorieError.bind(this));
 	}
 
 	receiveMenuCategorie (resp: Common.IResponse<any>): void {
@@ -162,7 +189,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	requestMenuSaga (): void {
 		this.setState({requestStatusMenuSaga: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'saga']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
+		Common.postAsJson(url_, {authorization:"BOOK_DASHBOARD:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
 	}
 
 	receiveMenuSaga (resp: Common.IResponse<any>): void {
@@ -185,7 +212,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	requestMenuPublishing (): void {
 		this.setState({requestStatusMenuPublishing: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'publishing']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuPublishing.bind(this), this.receiveMenuPublishingError.bind(this));
+		Common.postAsJson(url_, {authorization:"BOOK_DASHBOARD:DISPLAY"}, this.receiveMenuPublishing.bind(this), this.receiveMenuPublishingError.bind(this));
 	}
 
 	receiveMenuPublishing (resp: Common.IResponse<any>): void {
@@ -208,7 +235,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	requestMenuOwner (): void {
 		this.setState({requestStatusMenuOwner: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'owner']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
+		Common.postAsJson(url_, {authorization:"BOOK_DASHBOARD:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
 	}
 
 	receiveMenuOwner (resp: Common.IResponse<any>): void {
@@ -231,7 +258,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	requestMenuLocation (): void {
 		this.setState({requestStatusMenuLocation: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'liste', 'location']);
-		Common.postAsJson(url_, {authorization:"BOOK:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
+		Common.postAsJson(url_, {authorization:"BOOK_DASHBOARD:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
 	}
 
 	receiveMenuLocation (resp: Common.IResponse<any>): void {
@@ -272,7 +299,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	handleReturnBook():void {
 		this.setState({requestStatusReturnBook: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard', 'valretour']);
-		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BOOK:EDIT"}, this.receiveReturnBook.bind(this), this.receiveReturnBookError.bind(this));
+		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BOOK_DASHBOARD:EDIT"}, this.receiveReturnBook.bind(this), this.receiveReturnBookError.bind(this));
 		this.handleCancelReturnBook();
 		this.requestData();
 	}
@@ -297,13 +324,15 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 
 		if (this.state.requestStatus == Common.ECallStatus.RUNNING || this.state.requestStatusMenuCategorie == Common.ECallStatus.RUNNING || 
 			this.state.requestStatusMenuSaga == Common.ECallStatus.RUNNING || this.state.requestStatusMenuPublishing == Common.ECallStatus.RUNNING ||
-			this.state.requestStatusMenuOwner == Common.ECallStatus.RUNNING || this.state.requestStatusMenuLocation == Common.ECallStatus.RUNNING) {
+			this.state.requestStatusMenuOwner == Common.ECallStatus.RUNNING || this.state.requestStatusMenuLocation == Common.ECallStatus.RUNNING || 
+			this.state.requestStatusMenuAuthor == Common.ECallStatus.RUNNING) {
 			pageBody = this.renderRefreshing();
 		} else if (this.state.requestStatus == Common.ECallStatus.NOK || this.state.requestStatusMenuCategorie == Common.ECallStatus.NOK || 
 			this.state.requestStatusMenuSaga == Common.ECallStatus.NOK || this.state.requestStatusMenuPublishing == Common.ECallStatus.NOK ||
-			this.state.requestStatusMenuOwner == Common.ECallStatus.NOK || this.state.requestStatusMenuLocation == Common.ECallStatus.NOK) {
+			this.state.requestStatusMenuOwner == Common.ECallStatus.NOK || this.state.requestStatusMenuLocation == Common.ECallStatus.NOK || 
+			this.state.requestStatusMenuAuthor == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert />);
-		} else if (this.props.user && this.props.user.hasAuthorization('BOOK:DISPLAY')) {
+		} else if (this.props.user && this.props.user.hasAuthorization('BOOK_DASHBOARD:DISPLAY')) {
 			pageBody = this.renderDashboard();
 		} else {
 			pageBody = (<NotAuthorizedAlert />);
@@ -342,7 +371,6 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 	}
 
 	handleSaveCell(saveRows:any){
-		console.log(saveRows)
 		/* Lance enregistrement dans la database */
 		this.setState({requestStatusSave: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bibliotheque', 'dashboard', 'edit']);
@@ -457,7 +485,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 			new SpreadsheetColumn("name_book_publishing", "Maison d'édition", 150, "text", "liste", true, true, false, true, false, this.state.resultMenuPublishing),
 			new SpreadsheetColumn('name_owner', "Propriétaire", 150, "menu", "liste", true, true, true, true, true, this.state.resultMenuOwner),
 			new SpreadsheetColumn('name_location', "Localisation", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuLocation),
-			new SpreadsheetColumn('authors', "Auteur", 150, "text", "text", true, true, true, false, false),
+			new SpreadsheetColumn('authors', "Auteur", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuAuthor, true),
 			new SpreadsheetColumn('borrower', "Prêté", 150, "text", "text", true, true, true, true, false),
 			new SpreadsheetColumn('borrowing_date', "Date de prêt", 100, "date", "date", true, true, true, true, false),
 		];
@@ -519,7 +547,7 @@ export class DashboardBookComp extends React.PureComponent<DashboardProps, IDash
 		let buttonAffFormAddAuthor: React.ReactNode = (null);
 
 		// Si diff de -1 alors on a sélectionné une ligne du tableau
-		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BOOK:EDIT')){
+		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BOOK_DASHBOARD:EDIT')){
 
 			if(tabBorrower.indexOf(this.state.selectedRow) != -1){
 

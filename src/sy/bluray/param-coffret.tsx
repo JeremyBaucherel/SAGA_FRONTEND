@@ -71,7 +71,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 			pageBody = (this.renderRefreshing());
 		} else if (this.state.requestStatusAdd == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert error={this.state.resultAdd}/>);
-		} else if (this.props.user && this.props.user.hasAuthorization("BOOK:DISPLAY")) {
+		} else if (this.props.user && this.props.user.hasAuthorization("BOOK_DASHBOARD:DISPLAY")) {
 			let add:boolean = false;
 			if(this.props.user.hasAuthorization("BOOK_AUTEUR:ADD")){
 				add = true;
@@ -81,7 +81,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 						url={['api', 'bibliotheque', 'param', 'auteur']} 
 						urlEdit={['api', 'bibliotheque', 'param', 'auteur', 'edit']} 
 						urlDel={['api', 'bibliotheque', 'param', 'auteur', 'del']} 
-						authorization={"BOOK:DISPLAY"}
+						authorization={"BOOK_DASHBOARD:DISPLAY"}
 						authorizationEdit={"BOOK_AUTEUR:EDIT"}
 						authorizationDel={"BOOK_AUTEUR:DEL"}
 						process={"Bibliothèque"}
