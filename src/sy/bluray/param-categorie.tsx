@@ -71,7 +71,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 			pageBody = (this.renderRefreshing());
 		} else if (this.state.requestStatusAdd == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert error={this.state.resultAdd}/>);
-		} else if (this.props.user && this.props.user.hasAuthorization("BLURAY:DISPLAY")) {
+		} else if (this.props.user && this.props.user.hasAuthorization("BLURAY_DASHBOARD:DISPLAY")) {
 			let add:boolean = false;
 			if(this.props.user.hasAuthorization("BLURAY_CATEGORIE:ADD")){
 				add = true;
@@ -81,7 +81,7 @@ export class ParamComp extends React.PureComponent<ParamProps,ParamState> {
 						url={['api', 'bluray', 'param', 'categorie']} 
 						urlEdit={['api', 'bluray', 'param', 'categorie', 'edit']} 
 						urlDel={['api', 'bluray', 'param', 'categorie', 'del']} 
-						authorization={"BLURAY:DISPLAY"}
+						authorization={"BLURAY_DASHBOARD:DISPLAY"}
 						authorizationEdit={"BLURAY_CATEGORIE:EDIT"}
 						authorizationDel={"BLURAY_CATEGORIE:DEL"}
 						process={"Bluray"}

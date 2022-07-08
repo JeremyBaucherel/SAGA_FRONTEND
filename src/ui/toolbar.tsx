@@ -62,9 +62,9 @@ export class ToolbarComponent extends React.PureComponent<IToolbarProps> {
 
 	renderProcessButton(): React.ReactNode {
 		let isBook = Common.hasAuthorization(this.props.user, 'BOOK_DASHBOARD:DISPLAY');
-        let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY');
-        let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY');
-        let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY');
+        let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE_DASHBOARD:DISPLAY');
+        let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY_DASHBOARD:DISPLAY');
+        let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE_DASHBOARD:DISPLAY');
 
 		let buttonBook = null;
 		let buttonfilmotheque = null;

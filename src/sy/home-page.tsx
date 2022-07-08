@@ -22,9 +22,9 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
         let dateJour = new Date();
 
         let isBook = Common.hasAuthorization(this.props.user, 'BOOK_DASHBOARD:DISPLAY');
-        let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY');
-        let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY');
-        let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY');
+        let isfilmotheque = Common.hasAuthorization(this.props.user, 'FILMOTHEQUE_DASHBOARD:DISPLAY');
+        let isBluray = Common.hasAuthorization(this.props.user, 'BLURAY_DASHBOARD:DISPLAY');
+        let isComptabilite = Common.hasAuthorization(this.props.user, 'COMPTABILITE_DASHBOARD:DISPLAY');
 
         let isOnlyBook = (isBook && !isfilmotheque && !isBluray && !isComptabilite);
         let isOnlyfilmotheque = (isfilmotheque && !isBook && !isBluray && !isComptabilite);
@@ -78,7 +78,7 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
     }
     
     renderBook(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'BOOK:DISPLAY')) {
+        if (Common.hasAuthorization(this.props.user, 'BOOK_DASHBOARD:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
@@ -97,7 +97,7 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
     }
 
     renderfilmotheque(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'FILMOTHEQUE:DISPLAY')) {
+        if (Common.hasAuthorization(this.props.user, 'FILMOTHEQUE_DASHBOARD:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
@@ -116,15 +116,15 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
     }
 
     renderBluray(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'BLURAY:DISPLAY')) {
+        if (Common.hasAuthorization(this.props.user, 'BLURAY_DASHBOARD:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody>
                         <HFlex>
                             <Button icon={EIcon.MOVIE_FILTER} secondary to="/bluray/dashboard" />
                             <VFlex>
-                                <ReactRouterDOM.Link to="/bluray/dashboard"><strong>Process COMS Elec</strong></ReactRouterDOM.Link>
-                                <p>Dashboard du process COMS Elec</p>
+                                <ReactRouterDOM.Link to="/bluray/dashboard"><strong>Liste des Bluray</strong></ReactRouterDOM.Link>
+                                <p>Liste des Bluray physique disponible</p>
                             </VFlex>
                         </HFlex>
                     </BoxBody> 
@@ -135,7 +135,7 @@ export class HomePageComp extends React.PureComponent<HomePageCompProps, {}> {
     }
 
     renderComptabilite(): React.ReactNode {
-        if (Common.hasAuthorization(this.props.user, 'COMPTABILITE:DISPLAY')) {
+        if (Common.hasAuthorization(this.props.user, 'COMPTABILITE_DASHBOARD:DISPLAY')) {
             return (
                 <Box withBorder style={{width:'500px', marginTop:'10px'}}>
                     <BoxBody padding={Padding.Large}>

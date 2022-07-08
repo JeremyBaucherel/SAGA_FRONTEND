@@ -37,12 +37,12 @@ export class ProcessTabsBlurayComp extends React.PureComponent<BlurayTabsProps, 
 	render (): React.ReactNode {
 		return (
 			<ToolbarTabs>
-				{this.renderTab(BlurayTabs.DASHBOARD, BlurayTabsTitle.DASHBOARD, './'+BlurayTabs.DASHBOARD, 'BLURAY:DISPLAY')}
-				{this.renderTab(BlurayTabs.COFFRET, BlurayTabsTitle.COFFRET, './'+BlurayTabs.COFFRET, 'BLURAY:DISPLAY')}
-				{this.renderTab(BlurayTabs.SAGA, BlurayTabsTitle.SAGA, './'+BlurayTabs.SAGA, 'BLURAY:DISPLAY')}
-				{this.renderTab(BlurayTabs.CATEGORIE, BlurayTabsTitle.CATEGORIE, './'+BlurayTabs.CATEGORIE, 'BLURAY:DISPLAY')}
-				{this.renderTab(BlurayTabs.OWNER, BlurayTabsTitle.OWNER, './'+BlurayTabs.OWNER, 'BLURAY:DISPLAY')}
-				{this.renderTab(BlurayTabs.LOCATION, BlurayTabsTitle.LOCATION, './'+BlurayTabs.LOCATION, 'BLURAY:DISPLAY')}
+				{this.renderTab(BlurayTabs.DASHBOARD, BlurayTabsTitle.DASHBOARD, './'+BlurayTabs.DASHBOARD, 'BLURAY_DASHBOARD:DISPLAY')}
+				{this.renderTab(BlurayTabs.COFFRET, BlurayTabsTitle.COFFRET, './'+BlurayTabs.COFFRET, 'BLURAY_DASHBOARD:DISPLAY')}
+				{this.renderTab(BlurayTabs.SAGA, BlurayTabsTitle.SAGA, './'+BlurayTabs.SAGA, 'BLURAY_DASHBOARD:DISPLAY')}
+				{this.renderTab(BlurayTabs.CATEGORIE, BlurayTabsTitle.CATEGORIE, './'+BlurayTabs.CATEGORIE, 'BLURAY_DASHBOARD:DISPLAY')}
+				{this.renderTab(BlurayTabs.OWNER, BlurayTabsTitle.OWNER, './'+BlurayTabs.OWNER, 'BLURAY_DASHBOARD:DISPLAY')}
+				{this.renderTab(BlurayTabs.LOCATION, BlurayTabsTitle.LOCATION, './'+BlurayTabs.LOCATION, 'BLURAY_DASHBOARD:DISPLAY')}
 			</ToolbarTabs>
 		);
 	}

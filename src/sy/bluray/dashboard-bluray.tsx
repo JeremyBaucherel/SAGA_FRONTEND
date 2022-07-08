@@ -19,10 +19,11 @@ interface IDashboardState {
 	resultAdd: any;
 	resultDel: any;
 
-	resultMenuType: any;
+	resultMenuCategorie: any;
 	resultMenuSaga: any;
 	resultMenuOwner: any;
 	resultMenuLocation: any;
+	resultMenuCoffret: any;
 
 	filter_default: any;
 
@@ -35,6 +36,7 @@ interface IDashboardState {
 	requestStatusMenuSaga: Common.ECallStatus;
 	requestStatusMenuOwner: Common.ECallStatus;
 	requestStatusMenuLocation: Common.ECallStatus;
+	requestStatusMenuCoffret: Common.ECallStatus;
 
 	resultReturnBluray: any;
 	requestStatusReturnBluray: Common.ECallStatus;
@@ -58,11 +60,11 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 			resultAdd: {},
 			resultDel: {},
 
-			resultMenuType: {},
+			resultMenuCategorie: {},
 			resultMenuSaga: {},
-
 			resultMenuOwner: {},
 			resultMenuLocation: {},
+			resultMenuCoffret: {},
 
 			filter_default: {},
 
@@ -70,13 +72,13 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 			requestStatusSave: Common.ECallStatus.NOT_STARTED,
 			requestStatusDel: Common.ECallStatus.NOT_STARTED,
 			requestStatusAdd: Common.ECallStatus.NOT_STARTED,
-
+			
 			requestStatusMenuType: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuSaga: Common.ECallStatus.NOT_STARTED,
-
 			requestStatusMenuOwner: Common.ECallStatus.NOT_STARTED,
 			requestStatusMenuLocation: Common.ECallStatus.NOT_STARTED,
-			
+			requestStatusMenuCoffret: Common.ECallStatus.NOT_STARTED,
+
 			resultReturnBluray: {},
 			requestStatusReturnBluray: Common.ECallStatus.NOT_STARTED,
 
@@ -107,6 +109,7 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 		this.requestMenuSaga();
 		this.requestMenuOwner();
 		this.requestMenuLocation();
+		this.requestMenuCoffret();
 	}
 
 	// Requète bibliothèque
@@ -135,15 +138,15 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	// Menu Type
 	requestMenuType (): void {
 		this.setState({requestStatusMenuType: Common.ECallStatus.RUNNING});
-        let url_ = new Common.Url(['api', 'bluray', 'liste', 'type']);
-		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuType.bind(this), this.receiveMenuTypeError.bind(this));
+        let url_ = new Common.Url(['api', 'bluray', 'liste', 'categorie']);
+		Common.postAsJson(url_, {authorization:"BLURAY_DASHBOARD:DISPLAY"}, this.receiveMenuType.bind(this), this.receiveMenuTypeError.bind(this));
 	}
 
 	receiveMenuType (resp: Common.IResponse<any>): void {
 		let myresult = resp.body;
 		this.setState({
 			requestStatusMenuType: Common.ECallStatus.OK,
-			resultMenuType: myresult,
+			resultMenuCategorie: myresult,
 		});
 		this.handleDefineFilterDefault();
 	}
@@ -151,7 +154,7 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	receiveMenuTypeError (): void {
 		this.setState({
 			requestStatusMenuType: Common.ECallStatus.NOK,
-			resultMenuType:[]
+			resultMenuCategorie:[]
 		});
 	}
 
@@ -159,7 +162,7 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	requestMenuSaga (): void {
 		this.setState({requestStatusMenuSaga: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bluray', 'liste', 'saga']);
-		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
+		Common.postAsJson(url_, {authorization:"BLURAY_DASHBOARD:DISPLAY"}, this.receiveMenuSaga.bind(this), this.receiveMenuSagaError.bind(this));
 	}
 
 	receiveMenuSaga (resp: Common.IResponse<any>): void {
@@ -182,7 +185,7 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	requestMenuOwner (): void {
 		this.setState({requestStatusMenuOwner: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bluray', 'liste', 'owner']);
-		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
+		Common.postAsJson(url_, {authorization:"BLURAY_DASHBOARD:DISPLAY"}, this.receiveMenuOwner.bind(this), this.receiveMenuOwnerError.bind(this));
 	}
 
 	receiveMenuOwner (resp: Common.IResponse<any>): void {
@@ -205,7 +208,7 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	requestMenuLocation (): void {
 		this.setState({requestStatusMenuLocation: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bluray', 'liste', 'location']);
-		Common.postAsJson(url_, {authorization:"BLURAY:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
+		Common.postAsJson(url_, {authorization:"BLURAY_DASHBOARD:DISPLAY"}, this.receiveMenuLocation.bind(this), this.receiveMenuLocationError.bind(this));
 	}
 
 	receiveMenuLocation (resp: Common.IResponse<any>): void {
@@ -221,6 +224,29 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 		this.setState({
 			requestStatusMenuLocation: Common.ECallStatus.NOK,
 			resultMenuLocation:[]
+		});
+	}
+
+	// Menu Coffret
+	requestMenuCoffret (): void {
+		this.setState({requestStatusMenuCoffret: Common.ECallStatus.RUNNING});
+        let url_ = new Common.Url(['api', 'bluray', 'liste', 'coffret']);
+		Common.postAsJson(url_, {authorization:"BLURAY_DASHBOARD:DISPLAY"}, this.receiveMenuCoffret.bind(this), this.receiveMenuCoffretError.bind(this));
+	}
+
+	receiveMenuCoffret (resp: Common.IResponse<any>): void {
+		let myresult = resp.body;
+		this.setState({
+			requestStatusMenuCoffret: Common.ECallStatus.OK,
+			resultMenuCoffret: myresult,
+		});
+		this.handleDefineFilterDefault();
+	}
+
+	receiveMenuCoffretError (): void {
+		this.setState({
+			requestStatusMenuCoffret: Common.ECallStatus.NOK,
+			resultMenuCoffret:[]
 		});
 	}
 
@@ -246,7 +272,7 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	handleReturnBluray():void {
 		this.setState({requestStatusReturnBluray: Common.ECallStatus.RUNNING});
         let url_ = new Common.Url(['api', 'bluray', 'dashboard', 'valretour']);
-		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BLURAY:EDIT"}, this.receiveReturnBluray.bind(this), this.receiveReturnBlurayError.bind(this));
+		Common.postAsJson(url_, {rowId: this.state.selectedRow, authorization:"BLURAY_DASHBOARD:EDIT"}, this.receiveReturnBluray.bind(this), this.receiveReturnBlurayError.bind(this));
 		this.handleCancelReturnBluray();
 		this.requestData();
 	}
@@ -270,14 +296,14 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 		let pageBody: React.ReactNode = '';
 
 		if (this.state.requestStatus == Common.ECallStatus.RUNNING || this.state.requestStatusMenuType == Common.ECallStatus.RUNNING || 
-			this.state.requestStatusMenuSaga == Common.ECallStatus.RUNNING || 
+			this.state.requestStatusMenuSaga == Common.ECallStatus.RUNNING || this.state.requestStatusMenuCoffret == Common.ECallStatus.RUNNING ||
 			this.state.requestStatusMenuOwner == Common.ECallStatus.RUNNING || this.state.requestStatusMenuLocation == Common.ECallStatus.RUNNING) {
 			pageBody = this.renderRefreshing();
 		} else if (this.state.requestStatus == Common.ECallStatus.NOK || this.state.requestStatusMenuType == Common.ECallStatus.NOK || 
-			this.state.requestStatusMenuSaga == Common.ECallStatus.NOK || 
+			this.state.requestStatusMenuSaga == Common.ECallStatus.NOK || this.state.requestStatusMenuCoffret == Common.ECallStatus.NOK ||
 			this.state.requestStatusMenuOwner == Common.ECallStatus.NOK || this.state.requestStatusMenuLocation == Common.ECallStatus.NOK) {
 			pageBody = (<UnexpectedErrorAlert />);
-		} else if (this.props.user && this.props.user.hasAuthorization('BLURAY:DISPLAY')) {
+		} else if (this.props.user && this.props.user.hasAuthorization('BLURAY_DASHBOARD:DISPLAY')) {
 			pageBody = this.renderDashboard();
 		} else {
 			pageBody = (<NotAuthorizedAlert />);
@@ -421,13 +447,15 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 	}
 
 	renderDashboard (): React.ReactNode {
-
+		console.log(this.state.resultMenuCoffret)
 		let col = [
 			new SpreadsheetColumn('id', "id", 50, "text", "text", true, true, true, false, false),
-			new SpreadsheetColumn('name_categorie', "Catégorie", 50, "menu", "liste", true, true, true, true, true, this.state.resultMenuType),
+			new SpreadsheetColumn('name_categorie', "Catégorie", 50, "menu", "liste", true, true, true, true, true, this.state.resultMenuCategorie),
 			new SpreadsheetColumn('name_saga', "Saga", 120, "text", "liste", true, true, false, true, false, this.state.resultMenuSaga),
 			new SpreadsheetColumn('number', "Numéro", 85, "text", "text", true, true, false, true, false),
-			new SpreadsheetColumn('title', "Titre", 120, "text", "text", true, true, false, true, true),
+			new SpreadsheetColumn('titre', "Titre", 120, "text", "text", true, true, false, true, true),
+			new SpreadsheetColumn('steelbook', "Steelbook", 50, "boolean", "boolean", true, true, false, true, false),
+			new SpreadsheetColumn('name_coffret', "Coffret", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuCoffret),
 			new SpreadsheetColumn('name_owner', "Propriétaire", 150, "menu", "liste", true, true, true, true, true, this.state.resultMenuOwner),
 			new SpreadsheetColumn('name_location', "Localisation", 150, "menu", "liste", true, true, true, true, false, this.state.resultMenuLocation),
 			new SpreadsheetColumn('borrower', "Prêté", 150, "text", "text", true, true, true, true, false),
@@ -491,26 +519,26 @@ export class DashboardBlurayComp extends React.PureComponent<DashboardProps, IDa
 		let buttonAffFormAddAuthor: React.ReactNode = (null);
 
 		// Si diff de -1 alors on a sélectionné une ligne du tableau
-		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BLURAY:EDIT')){
+		if(this.state.selectedRow!=-1 && this.props.user && this.props.user.hasAuthorization('BLURAY_DASHBOARD:EDIT')){
 
 			if(tabBorrower.indexOf(this.state.selectedRow) != -1){
 
 				if(!this.state.popupReturnBlurayShown){
 				
 					buttonAffFormAddAuthor = (
-						<Button icon={EIcon.ASSIGNMENT_RETURN} secondary onClick={this.handleAffPopupReturnBluray}>&nbsp;Livre rendu</Button>
+						<Button icon={EIcon.ASSIGNMENT_RETURN} secondary onClick={this.handleAffPopupReturnBluray}>&nbsp;Bluray rendu</Button>
 					);
 					
 				}else{
 					buttonAffFormAddAuthor = (<Popup onBlanketClick={(e) => {}} height="180px">
 									<PopupTitle>
-										<h2>Validation retour livre prêté</h2>
+										<h2>Validation retour bluray prêté</h2>
 									</PopupTitle>
 									<PopupBody style={{display: "block"}}>
-											<p style={{padding:"0px 5px 10px 5px", fontSize:"1.2em"}}><strong>Etes-vous sûr que le livre vous a bien été rendu ? <br/>
+											<p style={{padding:"0px 5px 10px 5px", fontSize:"1.2em"}}><strong>Etes-vous sûr que le bluray vous a bien été rendu ? <br/>
 											Attention car ceci est une action définitive !!!</strong>
 											</p>
-											<Button secondary icon={EIcon.DONE} onClick={this.handleReturnBluray}><strong>Livre rendu</strong></Button>
+											<Button secondary icon={EIcon.DONE} onClick={this.handleReturnBluray}><strong>Bluray rendu</strong></Button>
 											<Button secondary icon={EIcon.BLOCK} onClick={this.handleCancelReturnBluray} ><strong>Annuler</strong></Button>
 									</PopupBody>
 								</Popup>);
